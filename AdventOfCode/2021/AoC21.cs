@@ -3,6 +3,8 @@ namespace AdventOfCode.Business
 {
     internal sealed partial class AoC21 : AoC
     {
+        private const string INPUT_PATH = @"./2021/Input/";
+
         public override string Day1_1() => Day1.Test1();
         public override string Day1_2() => Day1.Test2();
                
