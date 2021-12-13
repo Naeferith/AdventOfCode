@@ -19,7 +19,6 @@ namespace AdventOfCode.Business
             public static string Test1()
             {
                 var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
-
                 var previous = depths.First();
                 var count = 0;
 
@@ -36,14 +35,12 @@ namespace AdventOfCode.Business
                 const int slideSize = 3;
 
                 var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
-
                 var previous = depths.Take(slideSize).Sum();
                 var count = 0;
 
                 for (int i = 1; i < depths.Count() - (slideSize - 1); i++)
                 {
                     var val = depths.Skip(i).Take(slideSize).Sum();
-
                     count += (val > previous) ? 1 : 0;
                     previous = val;
                 }
@@ -125,9 +122,7 @@ namespace AdventOfCode.Business
                 var gammaRate = new int[binarySize];
 
                 for (int i = 0; i < binarySize; i++)
-                {
                     gammaRate[i] = (int)Math.Round(binaries.Select(b => int.Parse(b[i].ToString())).Sum() / (double)count);
-                }
 
                 var gammaB = gammaRate.Select(i => i == 1);
                 var epsilonB = gammaB.Select(b => !b);
@@ -187,9 +182,8 @@ namespace AdventOfCode.Business
                     }
 
                     foreach (var num in Regex.Split(line.Trim(), " +").Select((x, i) => new { Index = i, Value = int.Parse(x) }))
-                    {
                         boards.Last()[nLine, num.Index] = (num.Value, false);
-                    }
+
                     nLine++;
                 }
 
@@ -247,9 +241,8 @@ namespace AdventOfCode.Business
                     }
 
                     foreach (var num in Regex.Split(line.Trim(), " +").Select((x, i) => new { Index = i, Value = int.Parse(x) }))
-                    {
                         boards.Last()[nLine, num.Index] = (num.Value, false);
-                    }
+
                     nLine++;
                 }
 
@@ -302,9 +295,7 @@ namespace AdventOfCode.Business
                 for (int y = 0; y < board.GetLength(0); y++)
                 {
                     for (int x = 0; x < board.GetLength(1); x++)
-                    {
                         sum += board[x, y].Item2 ? 0 : board[x, y].Item1;
-                    }
                 }
                 return sum * pull;
             }
@@ -355,9 +346,7 @@ namespace AdventOfCode.Business
                     for (int x = 0; x < grid.GetLength(0); x++)
                     {
                         if (grid[x, y] > 1)
-                        {
                             count++;
-                        }
                     }
                 }
 
@@ -404,9 +393,7 @@ namespace AdventOfCode.Business
                     for (int x = 0; x < grid.GetLength(0); x++)
                     {
                         if (grid[x, y] > 1)
-                        {
                             count++;
-                        }
                     }
                 }
 
@@ -479,14 +466,10 @@ namespace AdventOfCode.Business
                 var fishes = new SortedDictionary<int, ulong>();
 
                 for (int i = 0; i < MATURITY_DAYS + REPRODUCTION_DAYS; i++)
-                {
                     fishes[i] = 0;
-                }
 
                 foreach (var tuple in input)
-                {
                     fishes[tuple.Key] = tuple.Item2;
-                }
 
                 for (int i = 0; i < SIMULATION_DAYS; i++)
                 {
@@ -522,9 +505,7 @@ namespace AdventOfCode.Business
                 {
                     var sum = 0;
                     foreach (var crab in crabs)
-                    {
                         sum += Math.Abs(crab - i);
-                    }
                     dict[i] = sum;
                 }
 
@@ -541,9 +522,7 @@ namespace AdventOfCode.Business
                 {
                     var sum = 0;
                     foreach (var crab in crabs)
-                    {
                         sum += CrabFuel(Math.Abs(crab - i));
-                    }
                     dict[i] = sum;
                 }
 
@@ -578,7 +557,6 @@ namespace AdventOfCode.Business
                     dec.Analyse(args[0].Split(' '));
                     sum += dec.Decode(args[1].Split(' '));
                 }
-
 
                 return sum.ToString();
             }
@@ -657,9 +635,8 @@ namespace AdventOfCode.Business
                 {
                     var outstr = string.Empty;
                     foreach (var str in output)
-                    {
                         outstr += Numbers.First(e => e.Value.Equals(string.Concat(str.OrderBy(c => c)))).Key;
-                    }
+
                     return int.Parse(outstr);
                 }
             }
@@ -819,18 +796,13 @@ namespace AdventOfCode.Business
                 public override bool Equals(object obj)
                 {
                     if (obj == null || GetType() != obj.GetType())
-                    {
                         return false;
-                    }
 
                     Point other = obj as Point;
                     return other != null && other.X == X && other.Y == Y;
                 }
 
-                public override int GetHashCode()
-                {
-                    return HashCode.Combine(X, Y);
-                }
+                public override int GetHashCode() => HashCode.Combine(X, Y);
 
                 public bool Equals(Point other)
                 {
@@ -966,9 +938,7 @@ namespace AdventOfCode.Business
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
-                    {
                         grid[x, y] = input.ElementAt(y).ElementAt(x);
-                    }
                 }
 
                 for (int i = 0; i < STEPS; i++)
@@ -1030,9 +1000,7 @@ namespace AdventOfCode.Business
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
-                    {
                         grid[x, y] = input.ElementAt(y).ElementAt(x);
-                    }
                 }
 
                 var i = 0;
@@ -1103,34 +1071,22 @@ namespace AdventOfCode.Business
                 {
                     sum += TryIncrease(grid, x - 1, y);
                     if (y > 0)
-                    {
                         sum += TryIncrease(grid, x - 1, y - 1);
-                    }
                     if (y < grid.GetLength(1) - 1)
-                    {
                         sum += TryIncrease(grid, x - 1, y + 1);
-                    }
                 }
                 if (x < grid.GetLength(0) - 1)
                 {
                     sum += TryIncrease(grid, x + 1, y);
                     if (y > 0)
-                    {
                         sum += TryIncrease(grid, x + 1, y - 1);
-                    }
                     if (y < grid.GetLength(1) - 1)
-                    {
                         sum += TryIncrease(grid, x + 1, y + 1);
-                    }
                 }
                 if (y > 0)
-                {
                     sum += TryIncrease(grid, x, y - 1);
-                }
                 if (y < grid.GetLength(1) - 1)
-                {
                     sum += TryIncrease(grid, x, y + 1);
-                }
 
                 return sum;
             }
@@ -1212,9 +1168,7 @@ namespace AdventOfCode.Business
                 foreach (var next in source.Neighbours)
                 {
                     if (next.IsBigCave || !path.Split(',').Contains(next.Id))
-                    {
                         GetPath(next, path, paths);
-                    }
                 }
             }
             private static void GetPath2(Cave source, string path, ICollection<string> paths, bool twice = false)
@@ -1234,9 +1188,7 @@ namespace AdventOfCode.Business
                             continue;
 
                         if (!next.IsBigCave && path.Split(',').Contains(next.Id))
-                        {
                             GetPath2(next, path, paths, true);
-                        }
                         else
                             GetPath2(next, path, paths, twice);
                     }
@@ -1268,20 +1220,11 @@ namespace AdventOfCode.Business
                 }
 
                 // override object.GetHashCode
-                public override int GetHashCode()
-                {
-                    return Id.GetHashCode();
-                }
+                public override int GetHashCode() => Id.GetHashCode();
 
-                public bool Equals(Cave other)
-                {
-                    return other?.Id.Equals(Id) ?? false;
-                }
+                public bool Equals(Cave other) => other?.Id.Equals(Id) ?? false;
 
-                public override string ToString()
-                {
-                    return Id;
-                }
+                public override string ToString() => Id;
             }
         }
         private static class Day13
@@ -1305,16 +1248,12 @@ namespace AdventOfCode.Business
                 var grid = new List<List<bool>>();
 
                 for (int i = 0; i <= width; i++)
-                {
                     grid.Add(Enumerable.Repeat(false, height + 1).ToList());
-                }
 
                 foreach (var dot in dots)
-                {
                     grid[dot.Item1][dot.Item2] = true;
-                }
 
-                // Fold
+
                 var fold = folds.First();
                  
                 switch (fold.Item1)
@@ -1326,15 +1265,11 @@ namespace AdventOfCode.Business
                             for (int y = 0; y < newSize; y++)
                             {
                                 for (int x = 0; x < grid.Count; x++)
-                                {
                                     grid[x][y] |= grid[x][height - y];
-                                }
                             }
 
                             foreach (var col in grid)
-                            {
                                 col.RemoveRange(newSize, col.Count - newSize);
-                            }
                         }
                         break;
                     case "x":
@@ -1344,9 +1279,7 @@ namespace AdventOfCode.Business
                             for (int x = 0; x < newSize; x++)
                             {
                                 for (int y = 0; y < grid[y].Count; y++)
-                                {
                                     grid[x][y] |= grid[width - x][y];
-                                }
                             }
                             grid.RemoveRange(newSize, grid.Count - newSize);
                         }
@@ -1357,9 +1290,7 @@ namespace AdventOfCode.Business
                 for (int y = 0; y < grid[0].Count; y++)
                 {
                     for (int x = 0; x < grid.Count; x++)
-                    {
                         sum += grid[x][y] ? 1 : 0;
-                    }
                 }
 
                 return sum.ToString();
@@ -1383,14 +1314,10 @@ namespace AdventOfCode.Business
                 var grid = new List<List<bool>>();
 
                 for (int i = 0; i <= width; i++)
-                {
                     grid.Add(Enumerable.Repeat(false, height + 1).ToList());
-                }
 
                 foreach (var dot in dots)
-                {
                     grid[dot.Item1][dot.Item2] = true;
-                }
 
                 // Fold
                 foreach (var fold in folds)
@@ -1404,15 +1331,11 @@ namespace AdventOfCode.Business
                                 for (int y = 0; y < newSize; y++)
                                 {
                                     for (int x = 0; x < grid.Count; x++)
-                                    {
                                         grid[x][y] |= grid[x][height - y];
-                                    }
                                 }
 
                                 foreach (var col in grid)
-                                {
                                     col.RemoveRange(newSize, col.Count - newSize);
-                                }
                                 height = newSize - 1;
                             }
                             break;
@@ -1423,9 +1346,7 @@ namespace AdventOfCode.Business
                                 for (int x = 0; x < newSize; x++)
                                 {
                                     for (int y = 0; y < grid[y].Count; y++)
-                                    {
                                         grid[x][y] |= grid[width - x][y];
-                                    }
                                 }
                                 grid.RemoveRange(newSize, grid.Count - newSize);
                                 width = newSize - 1;
@@ -1437,9 +1358,7 @@ namespace AdventOfCode.Business
                 for (int y = 0; y < grid[0].Count; y++)
                 {
                     for (int x = 0; x < grid.Count; x++)
-                    {
-                        Console.Write(grid[x][y] ? "#" : ".");
-                    }
+                        Console.Write(grid[x][y] ? "#" : " ");
                     Console.WriteLine();
                 }
 
