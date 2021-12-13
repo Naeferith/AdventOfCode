@@ -11,12 +11,14 @@ namespace AdventOfCode.Business
 {
     internal sealed partial class AoC21
     {
+        private const string INPUT_PATH = @"./2021/Input/";
+
         #region Solutions
         private static class Day1
         {
             public static string Test1()
             {
-                var depths = File.ReadLines(@"./Input/day1.txt").Select(t => int.Parse(t));
+                var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
 
                 var previous = depths.First();
                 var count = 0;
@@ -33,7 +35,7 @@ namespace AdventOfCode.Business
             {
                 const int slideSize = 3;
 
-                var depths = File.ReadLines(@"./Input/day1.txt").Select(t => int.Parse(t));
+                var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
 
                 var previous = depths.Take(slideSize).Sum();
                 var count = 0;
@@ -53,7 +55,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var movements = File.ReadLines(@"./Input/day2.txt").Select(o =>
+                var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
                 {
                     var args = o.Split(' ');
                     return (args[0], int.Parse(args[1]));
@@ -83,7 +85,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var movements = File.ReadLines(@"./Input/day2.txt").Select(o =>
+                var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
                 {
                     var args = o.Split(' ');
                     return (args[0], int.Parse(args[1]));
@@ -118,7 +120,7 @@ namespace AdventOfCode.Business
             public static string Test1()
             {
                 const int binarySize = 12;
-                var binaries = File.ReadLines(@"./Input/day3.txt");
+                var binaries = File.ReadLines($"{INPUT_PATH}day3.txt");
                 var count = binaries.Count();
                 var gammaRate = new int[binarySize];
 
@@ -139,7 +141,7 @@ namespace AdventOfCode.Business
             {
                 const int binarySize = 12;
 
-                var binaries = File.ReadLines(@"./Input/day3.txt");
+                var binaries = File.ReadLines($"{INPUT_PATH}day3.txt");
                 var count = binaries.Count();
                 var o2Enum = binaries.ToList();
                 var co2Enum = binaries.ToList();
@@ -169,7 +171,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var input = File.ReadLines(@"./Input/day4.txt");
+                var input = File.ReadLines($"{INPUT_PATH}day4.txt");
                 var pulls = input.First().Split(',').Select(p => int.Parse(p));
 
                 List<(int, bool)[,]> boards = new();
@@ -229,7 +231,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var input = File.ReadLines(@"./Input/day4.txt");
+                var input = File.ReadLines($"{INPUT_PATH}day4.txt");
                 var pulls = input.First().Split(',').Select(p => int.Parse(p));
 
                 List<(int, bool)[,]> boards = new();
@@ -311,7 +313,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var lines = File.ReadLines(@"./Input/day5.txt").Select(l =>
+                var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
                 {
                     var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     return (Point.Parse(p[0]), Point.Parse(p[1]));
@@ -363,7 +365,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var lines = File.ReadLines(@"./Input/day5.txt").Select(l =>
+                var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
                 {
                     var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     return (Point.Parse(p[0]), Point.Parse(p[1]));
@@ -441,7 +443,7 @@ namespace AdventOfCode.Business
                 const short MATURITY_DAYS = 2;
                 const short SIMULATION_DAYS = 80;
 
-                var fishes = File.ReadLines(@"./Input/day6.txt").Select(t => t.Split(',').Select(n => short.Parse(n)).ToList()).First();
+                var fishes = File.ReadLines($"{INPUT_PATH}day6.txt").Select(t => t.Split(',').Select(n => short.Parse(n)).ToList()).First();
 
                 for (int i = 0; i < SIMULATION_DAYS; i++)
                 {
@@ -467,7 +469,7 @@ namespace AdventOfCode.Business
                 const int MATURITY_DAYS = 2;
                 const int SIMULATION_DAYS = 256;
 
-                var input = File.ReadLines(@"./Input/day6.txt").Select(t =>
+                var input = File.ReadLines($"{INPUT_PATH}day6.txt").Select(t =>
                 t
                 .Split(',')
                 .Select(n => int.Parse(n))
@@ -511,7 +513,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var crabs = File.ReadLines(@"./Input/day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
+                var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
 
                 var dict = new Dictionary<int, int>();
@@ -530,7 +532,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var crabs = File.ReadLines(@"./Input/day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
+                var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
 
                 var dict = new Dictionary<int, int>();
@@ -554,7 +556,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var segments = File.ReadLines(@"./Input/day8.txt").Select(t =>
+                var segments = File.ReadLines($"{INPUT_PATH}day8.txt").Select(t =>
                 {
                     return t.Split(new string[] { " | " }, StringSplitOptions.RemoveEmptyEntries)[1].Split(' ')
                     .Where(s => s.Length == 2 || s.Length == 3 || s.Length == 4 || s.Length == 7)
@@ -566,7 +568,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var lines = File.ReadLines(@"./Input/day8.txt");
+                var lines = File.ReadLines($"{INPUT_PATH}day8.txt");
 
                 var sum = 0;
                 foreach (var line in lines)
@@ -666,7 +668,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var lines = File.ReadLines(@"./Input/day9.txt").Select(l => l.Select(c => c - '0'));
+                var lines = File.ReadLines($"{INPUT_PATH}day9.txt").Select(l => l.Select(c => c - '0'));
                 var grid = new List<List<int>>();
                 var points = new List<int>();
 
@@ -679,10 +681,9 @@ namespace AdventOfCode.Business
                 return points.Sum(i => i + 1).ToString();
             }
 
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Valider la compatibilité de la plateforme", Justification = "<En attente>")]
             public static string Test2(bool debug = false)
             {
-                var lines = File.ReadLines(@"./Input/day9.txt").Select(l => l.Select(c => c - '0'));
+                var lines = File.ReadLines($"{INPUT_PATH}day9.txt").Select(l => l.Select(c => c - '0'));
                 var grid = new List<List<int>>();
                 var bazins = new List<HashSet<Point>>();
 
@@ -697,7 +698,8 @@ namespace AdventOfCode.Business
                     };
                     bazins.Add(GetHighs(low, grid, ref bazin));
                 }
-
+#if DEBUG
+#pragma warning disable CA1416 // Valider la compatibilité de la plateforme
                 if (debug)
                 {
                     using var bmp = new Bitmap(lines.First().Count(), lines.Count());
@@ -724,6 +726,8 @@ namespace AdventOfCode.Business
                     }
                     bmp.Save("bmp.png");
                 }
+#pragma warning restore CA1416 // Valider la compatibilité de la plateforme
+#endif
                 return bazins.OrderByDescending(b => b.Count).Take(3).Select(b => b.Count).Aggregate(1, (s, c) => s * c).ToString();
             }
 
@@ -847,7 +851,7 @@ namespace AdventOfCode.Business
 
             public static string Test1()
             {
-                var lines = File.ReadLines(@"./Input/day10.txt");
+                var lines = File.ReadLines($"{INPUT_PATH}day10.txt");
 
                 var sum = 0;
                 foreach (var line in lines)
@@ -878,7 +882,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var lines = File.ReadLines(@"./Input/day10.txt");
+                var lines = File.ReadLines($"{INPUT_PATH}day10.txt");
 
                 var scores = new SortedSet<ulong>();
                 foreach (var line in lines.Where(l => !IsCorrupted(l, out var _)))
@@ -928,7 +932,6 @@ namespace AdventOfCode.Business
                         corrupted = c;
                         return true;
                     }
-
                 }
                 corrupted = default;
                 return false;
@@ -953,7 +956,7 @@ namespace AdventOfCode.Business
             public static string Test1(bool debug = false)
             {
                 const int STEPS = 100;
-                var input = File.ReadLines(@"./Input/day11.txt").Select(l => l.Select(c => c - '0'));
+                var input = File.ReadLines($"{INPUT_PATH}day11.txt").Select(l => l.Select(c => c - '0'));
                 var width = input.First().Count();
                 var height = input.Count();
                 var grid = new int[width, height];
@@ -1018,7 +1021,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2(bool debug = false)
             {
-                var input = File.ReadLines(@"./Input/day11.txt").Select(l => l.Select(c => c - '0'));
+                var input = File.ReadLines($"{INPUT_PATH}day11.txt").Select(l => l.Select(c => c - '0'));
                 var width = input.First().Count();
                 var height = input.Count();
                 var grid = new int[width, height];
@@ -1136,7 +1139,7 @@ namespace AdventOfCode.Business
         {
             public static string Test1()
             {
-                var input = File.ReadLines(@"./Input/day12.txt").Select(l =>
+                var input = File.ReadLines($"{INPUT_PATH}day12.txt").Select(l =>
                 {
                     var s = l.Split('-');
                     return (s[0], s[1]);
@@ -1167,7 +1170,7 @@ namespace AdventOfCode.Business
             }
             public static string Test2()
             {
-                var input = File.ReadLines(@"./Input/day12.txt").Select(l =>
+                var input = File.ReadLines($"{INPUT_PATH}day12.txt").Select(l =>
                 {
                     var s = l.Split('-');
                     return (s[0], s[1]);
@@ -1214,7 +1217,7 @@ namespace AdventOfCode.Business
                     }
                 }
             }
-            private static void GetPath2(Cave source, string path, ICollection<string> paths, Cave twice = null)
+            private static void GetPath2(Cave source, string path, ICollection<string> paths, bool twice = false)
             {
                 if (source.Id.Equals("end"))
                 {
@@ -1225,14 +1228,14 @@ namespace AdventOfCode.Business
                 path += $"{source.Id},";
                 foreach (var next in source.Neighbours)
                 {
-                    if (next.IsBigCave || twice == null || !path.Split(',').Contains(next.Id))
+                    if (next.IsBigCave || !twice || !path.Split(',').Contains(next.Id))
                     {
                         if (next.Id.Equals("start"))
                             continue;
 
                         if (!next.IsBigCave && path.Split(',').Contains(next.Id))
                         {
-                            GetPath2(next, path, paths, next);
+                            GetPath2(next, path, paths, true);
                         }
                         else
                             GetPath2(next, path, paths, twice);
@@ -1254,13 +1257,6 @@ namespace AdventOfCode.Business
                     if (!Equals(node))
                         Neighbours.Add(node);
                 }
-
-                public bool IsPrunable =>
-                    Neighbours.Count == 1 &&
-                    Id != "end" &&
-                    Neighbours.First().Id.Equals(Neighbours.First().Id.ToLower()) || Id == "start";
-
-                public bool IsLeave => Neighbours.Count == 1;
 
                 public bool IsBigCave => Id.ToUpper().Equals(Id);
 

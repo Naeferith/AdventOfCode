@@ -7,7 +7,7 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
             var calendar = AoC.GetCalendar(2021);
-            Console.WriteLine(calendar.Day13_1());
+            Console.WriteLine(calendar.Day1_1());
             Console.ReadKey();
         }
     }
