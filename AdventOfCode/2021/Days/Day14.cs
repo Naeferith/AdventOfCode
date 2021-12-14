@@ -18,13 +18,36 @@ namespace AdventOfCode.Business
             private static string Test(int steps)
             {
                 var input = File.ReadAllLines($"{INPUT_PATH}day14.txt");
-                var polymer = new StringBuilder(input.First());
+                var polymer = input.First();
                 var rules = input.Where(l => l.Contains("-")).Select(l =>
                 {
                     var a = l.Split(new string[] { " -> " }, StringSplitOptions.None);
                     return (a[0], a[1]);
-                }).OrderBy(h => h.Item1);
+                });
 
+                for (var i = 0; i < polymer.Length; i += 2)
+                {
+
+                }
+
+                var ret = DivideAndConquer(input.First(), steps, rules).GroupBy(c => c).OrderByDescending(g => g.LongCount());
+
+                return (ret.First().LongCount() - ret.Last().LongCount()).ToString();
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="atom">2 char string</param>
+            /// <param name="steps"></param>
+            /// <param name="rules"></param>
+            /// <returns></returns>
+            private static string DivideAndConquer(string atom, int steps, IEnumerable<(string, string)> rules)
+            {
+                if (steps == 0)
+                    return atom;
+
+                var polymer = new StringBuilder(atom);
                 var doRules = new List<(Group, string)>();
 
                 for (int i = 0; i < steps; i++)
@@ -50,11 +73,15 @@ namespace AdventOfCode.Business
                         j++;
                     }
 
+                    // here polymer.Length = 3
+                    var s = polymer.ToString();
+                    steps--;
                     doRules.Clear();
-                }
-                var ret = polymer.ToString().GroupBy(c => c).OrderByDescending(g => g.LongCount());
 
-                return (ret.First().LongCount() - ret.Last().LongCount()).ToString();
+                    return DivideAndConquer(s[..1], steps, rules)[..1] + DivideAndConquer(s[1..], steps, rules);                    
+                }
+
+                return polymer.ToString();
             }
         }
     }
