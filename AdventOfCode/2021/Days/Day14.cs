@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Business
 {
@@ -22,66 +21,55 @@ namespace AdventOfCode.Business
                 var rules = input.Where(l => l.Contains("-")).Select(l =>
                 {
                     var a = l.Split(new string[] { " -> " }, StringSplitOptions.None);
-                    return (a[0], a[1]);
-                });
+                    return (a[0], Convert.ToChar(a[1]));
+                }).ToDictionary(r => r.Item1, r => r.Item2);
+                var counts = polymer.GroupBy(x => x).ToDictionary(y => y.Key, y => y.LongCount());
 
-                for (var i = 0; i < polymer.Length; i += 2)
+                var pairs = new Dictionary<string, long>();
+                for (int i = 0; i < polymer.Length - 1; i++)
                 {
-
+                    if (pairs.ContainsKey(polymer[i].ToString() + polymer[i + 1]))
+                        pairs[polymer[i].ToString() + polymer[i + 1]]++;
+                    else
+                        pairs.Add(polymer[i].ToString() + polymer[i + 1], 1);
                 }
-
-                var ret = DivideAndConquer(input.First(), steps, rules).GroupBy(c => c).OrderByDescending(g => g.LongCount());
-
-                return (ret.First().LongCount() - ret.Last().LongCount()).ToString();
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="atom">2 char string</param>
-            /// <param name="steps"></param>
-            /// <param name="rules"></param>
-            /// <returns></returns>
-            private static string DivideAndConquer(string atom, int steps, IEnumerable<(string, string)> rules)
-            {
-                if (steps == 0)
-                    return atom;
-
-                var polymer = new StringBuilder(atom);
-                var doRules = new List<(Group, string)>();
 
                 for (int i = 0; i < steps; i++)
                 {
-                    foreach (var rule in rules)
+                    foreach (var pair in pairs)
                     {
-                        var matches = Regex.Matches(polymer.ToString(), $"(?={rule.Item1})");
-                        foreach (Match match in matches)
-                        {
-                            foreach (var g in match.Groups.Values)
-                            {
-                                doRules.Add((g, rule.Item2));
-                            }
-                        }
+                        if (counts.ContainsKey(rules[pair.Key]))
+                            counts[rules[pair.Key]] += pair.Value;
+                        else
+                            counts.Add(rules[pair.Key], 1);
                     }
-
-                    var orderedRules = doRules.OrderBy(g => g.Item1.Index);
-
-                    var j = 0;
-                    foreach (var group in orderedRules)
-                    {
-                        polymer.Insert(group.Item1.Index + 1 + j, group.Item2);
-                        j++;
-                    }
-
-                    // here polymer.Length = 3
-                    var s = polymer.ToString();
-                    steps--;
-                    doRules.Clear();
-
-                    return DivideAndConquer(s[..1], steps, rules)[..1] + DivideAndConquer(s[1..], steps, rules);                    
+                    pairs = NewPairs(rules, pairs);
                 }
 
-                return polymer.ToString();
+                var ret = counts.OrderByDescending(e => e.Value).Select(e => e.Value);
+
+                return (ret.First() - ret.Last()).ToString();
+            }
+
+            private static Dictionary<string, long> NewPairs(Dictionary<string, char> rules, Dictionary<string, long> pairs)
+            {
+                var pairsNew = new Dictionary<string, long>();
+                foreach (var pair in pairs)
+                {
+                    var one = pair.Key[0].ToString() + rules[pair.Key];
+                    var two = rules[pair.Key].ToString() + pair.Key[1];
+
+                    if (pairsNew.ContainsKey(one))
+                        pairsNew[one] += pair.Value;
+                    else
+                        pairsNew.Add(one, pair.Value);
+
+                    if (pairsNew.ContainsKey(two))
+                        pairsNew[two] += pair.Value;
+                    else
+                        pairsNew.Add(two, pair.Value);
+                }
+                return pairsNew;
             }
         }
     }
