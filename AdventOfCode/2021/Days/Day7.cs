@@ -9,7 +9,7 @@ namespace AdventOfCode.Business
     {
         private static class Day7
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
@@ -26,7 +26,7 @@ namespace AdventOfCode.Business
 
                 return dict.Values.Min().ToString();
             }
-            public static string Test2()
+            public static string Solution2()
             {
                 var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();

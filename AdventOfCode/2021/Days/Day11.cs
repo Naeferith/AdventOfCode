@@ -9,7 +9,7 @@ namespace AdventOfCode.Business
     {
         private static class Day11
         {
-            public static string Test1(bool debug = false)
+            public static string Solution1(bool debug = false)
             {
                 const int STEPS = 100;
                 var input = File.ReadLines($"{INPUT_PATH}day11.txt").Select(l => l.Select(c => c - '0'));
@@ -74,7 +74,7 @@ namespace AdventOfCode.Business
                 return sum.ToString();
             }
 
-            public static string Test2(bool debug = false)
+            public static string Solution2(bool debug = false)
             {
                 var input = File.ReadLines($"{INPUT_PATH}day11.txt").Select(l => l.Select(c => c - '0'));
                 var width = input.First().Count();

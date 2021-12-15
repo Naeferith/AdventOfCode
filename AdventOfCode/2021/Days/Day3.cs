@@ -8,7 +8,7 @@ namespace AdventOfCode.Business
     {
         private static class Day3
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 const int binarySize = 12;
                 var binaries = File.ReadLines($"{INPUT_PATH}day3.txt");
@@ -27,7 +27,7 @@ namespace AdventOfCode.Business
                 return (Convert.ToInt32(gammaStr, 2) * Convert.ToInt32(epsilonStr, 2)).ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 const int binarySize = 12;
 

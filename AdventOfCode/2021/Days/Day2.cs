@@ -7,7 +7,7 @@ namespace AdventOfCode.Business
     {
         private static class Day2
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
                 {
@@ -38,7 +38,7 @@ namespace AdventOfCode.Business
                 return (dPos * hPos).ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
                 {

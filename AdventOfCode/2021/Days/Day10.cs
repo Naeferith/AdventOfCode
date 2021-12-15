@@ -16,7 +16,7 @@ namespace AdventOfCode.Business
                 ['<'] = '>'
             };
 
-            public static string Test1()
+            public static string Solution1()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day10.txt");
 
@@ -48,7 +48,7 @@ namespace AdventOfCode.Business
                 return sum.ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day10.txt");
 

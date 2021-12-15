@@ -8,7 +8,7 @@ namespace AdventOfCode.Business
     {
         private static class Day6
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 const short REPRODUCTION_DAYS = 7;
                 const short MATURITY_DAYS = 2;
@@ -34,7 +34,7 @@ namespace AdventOfCode.Business
 
                 return fishes.Count.ToString();
             }
-            public static string Test2()
+            public static string Solution2()
             {
                 const int REPRODUCTION_DAYS = 7;
                 const int MATURITY_DAYS = 2;

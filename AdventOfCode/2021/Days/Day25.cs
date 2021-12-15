@@ -7,12 +7,12 @@ namespace AdventOfCode.Business
     {
         private static class Day25
         {
-            public static string Test1()
+            public static string Solution1()
             {
 
                 return string.Empty;
             }
-            public static string Test2()
+            public static string Solution2()
             {
 
                 return string.Empty;

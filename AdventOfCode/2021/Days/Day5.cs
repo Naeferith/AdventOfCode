@@ -8,7 +8,7 @@ namespace AdventOfCode.Business
     {
         private static class Day5
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
                 {
@@ -59,7 +59,7 @@ namespace AdventOfCode.Business
                 return count.ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
                 {

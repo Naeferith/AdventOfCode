@@ -10,7 +10,7 @@ namespace AdventOfCode.Business
     {
         private static class Day13
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var input = File.ReadLines($"{INPUT_PATH}day13.txt");
                 var dots = input.Where(l => Regex.IsMatch(l, @"^\d")).Select(l =>
@@ -76,7 +76,7 @@ namespace AdventOfCode.Business
 
                 return sum.ToString();
             }
-            public static string Test2()
+            public static string Solution2()
             {
                 var input = File.ReadLines($"{INPUT_PATH}day13.txt");
                 var dots = input.Where(l => Regex.IsMatch(l, @"^\d")).Select(l =>

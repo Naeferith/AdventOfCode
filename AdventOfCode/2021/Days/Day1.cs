@@ -7,7 +7,7 @@ namespace AdventOfCode.Business
     {
         private static class Day1
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
                 var previous = depths.First();
@@ -22,7 +22,7 @@ namespace AdventOfCode.Business
                 return count.ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 const int slideSize = 3;
 

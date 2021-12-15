@@ -12,7 +12,7 @@ namespace AdventOfCode.Business
     {
         private static class Day9
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day9.txt").Select(l => l.Select(c => c - '0'));
                 var grid = new List<List<int>>();
@@ -27,7 +27,7 @@ namespace AdventOfCode.Business
                 return points.Sum(i => i + 1).ToString();
             }
 
-            public static string Test2(bool debug = false)
+            public static string Solution2(bool debug = false)
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day9.txt").Select(l => l.Select(c => c - '0'));
                 var grid = new List<List<int>>();

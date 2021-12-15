@@ -9,7 +9,7 @@ namespace AdventOfCode.Business
     {
         private static class Day8
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var segments = File.ReadLines($"{INPUT_PATH}day8.txt").Select(t =>
                 {
@@ -22,7 +22,7 @@ namespace AdventOfCode.Business
                 return segments.Sum().ToString();
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 var lines = File.ReadLines($"{INPUT_PATH}day8.txt");
 

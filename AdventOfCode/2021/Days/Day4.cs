@@ -9,7 +9,7 @@ namespace AdventOfCode.Business
     {
         private static class Day4
         {
-            public static string Test1()
+            public static string Solution1()
             {
                 var input = File.ReadLines($"{INPUT_PATH}day4.txt");
                 var pulls = input.First().Split(',').Select(p => int.Parse(p));
@@ -69,7 +69,7 @@ namespace AdventOfCode.Business
                 return string.Empty;
             }
 
-            public static string Test2()
+            public static string Solution2()
             {
                 var input = File.ReadLines($"{INPUT_PATH}day4.txt");
                 var pulls = input.First().Split(',').Select(p => int.Parse(p));

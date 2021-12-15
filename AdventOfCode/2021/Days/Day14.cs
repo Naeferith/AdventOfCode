@@ -10,11 +10,11 @@ namespace AdventOfCode.Business
     {
         private static class Day14
         {
-            public static string Test1() => Test(10);
+            public static string Solution1() => Solve(10);
 
-            public static string Test2() => Test(40);
+            public static string Solution2() => Solve(40);
 
-            private static string Test(int steps)
+            private static string Solve(int steps)
             {
                 var input = File.ReadAllLines($"{INPUT_PATH}day14.txt");
                 var polymer = input.First();
