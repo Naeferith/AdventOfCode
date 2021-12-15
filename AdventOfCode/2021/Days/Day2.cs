@@ -1,74 +1,72 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
-namespace AdventOfCode.Business
+namespace AdventOfCode.V2021
 {
-    internal sealed partial class AoC21
+    internal class Day2 : IDay
     {
-        private static class Day2
+        public string PuzzleName => "Dive !";
+
+        public string Solution1(string[] lines)
         {
-            public static string Solution1()
+            var movements = lines.Select(o =>
             {
-                var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
-                {
-                    var args = o.Split(' ');
-                    return (args[0], int.Parse(args[1]));
-                });
+                var args = o.Split(' ');
+                return (args[0], int.Parse(args[1]));
+            });
 
-                int hPos = 0, dPos = 0;
+            int hPos = 0, dPos = 0;
 
-                foreach (var movement in movements)
+            foreach (var movement in movements)
+            {
+                switch (movement.Item1)
                 {
-                    switch (movement.Item1)
-                    {
-                        case "forward":
-                            hPos += movement.Item2;
-                            break;
-                        case "up":
-                            dPos -= movement.Item2;
-                            break;
-                        case "down":
-                            dPos += movement.Item2;
-                            break;
-                        default:
-                            break;
-                    }
+                    case "forward":
+                        hPos += movement.Item2;
+                        break;
+                    case "up":
+                        dPos -= movement.Item2;
+                        break;
+                    case "down":
+                        dPos += movement.Item2;
+                        break;
+                    default:
+                        break;
                 }
-
-                return (dPos * hPos).ToString();
             }
 
-            public static string Solution2()
+            return (dPos * hPos).ToString();
+        }
+
+        public string Solution2(string[] lines)
+        {
+            var movements = lines.Select(o =>
             {
-                var movements = File.ReadLines($"{INPUT_PATH}day2.txt").Select(o =>
-                {
-                    var args = o.Split(' ');
-                    return (args[0], int.Parse(args[1]));
-                });
+                var args = o.Split(' ');
+                return (args[0], int.Parse(args[1]));
+            });
 
-                int hPos = 0, dPos = 0, aim = 0;
+            int hPos = 0, dPos = 0, aim = 0;
 
-                foreach (var movement in movements)
+            foreach (var movement in movements)
+            {
+                switch (movement.Item1)
                 {
-                    switch (movement.Item1)
-                    {
-                        case "forward":
-                            hPos += movement.Item2;
-                            dPos += aim * movement.Item2;
-                            break;
-                        case "up":
-                            aim -= movement.Item2;
-                            break;
-                        case "down":
-                            aim += movement.Item2;
-                            break;
-                        default:
-                            break;
-                    }
+                    case "forward":
+                        hPos += movement.Item2;
+                        dPos += aim * movement.Item2;
+                        break;
+                    case "up":
+                        aim -= movement.Item2;
+                        break;
+                    case "down":
+                        aim += movement.Item2;
+                        break;
+                    default:
+                        break;
                 }
-
-                return (dPos * hPos).ToString();
             }
+
+            return (dPos * hPos).ToString();
         }
     }
 }

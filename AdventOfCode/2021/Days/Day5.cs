@@ -1,133 +1,131 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Business
+namespace AdventOfCode.V2021
 {
-    internal sealed partial class AoC21
+    internal class Day5 : IDay
     {
-        private static class Day5
+        public string PuzzleName => "Hydrothermal Venture";
+
+        public string Solution1(string[] lines)
         {
-            public static string Solution1()
+            var rows = lines.Select(l =>
             {
-                var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
+                var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return (Point.Parse(p[0]), Point.Parse(p[1]));
+            });
+
+            int[,] grid = new int[1000, 1000];
+
+            foreach (var line in rows)
+            {
+                var delta = line.Item2 - line.Item1;
+
+                if (delta.X != 0 && delta.Y != 0)
+                    continue;
+
+                grid[line.Item1.X, line.Item1.Y]++;
+
+                while (!delta.IsNull)
                 {
-                    var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    return (Point.Parse(p[0]), Point.Parse(p[1]));
-                });
-
-                int[,] grid = new int[1000, 1000];
-
-                foreach (var line in lines)
-                {
-                    var delta = line.Item2 - line.Item1;
-
-                    if (delta.X != 0 && delta.Y != 0)
-                        continue;
+                    if (delta.X != 0)
+                    {
+                        var u = delta.X / Math.Abs(delta.X);
+                        delta.X -= u;
+                        line.Item1.X += u;
+                    }
+                    if (delta.Y != 0)
+                    {
+                        var u = delta.Y / Math.Abs(delta.Y);
+                        delta.Y -= u;
+                        line.Item1.Y += u;
+                    }
 
                     grid[line.Item1.X, line.Item1.Y]++;
-
-                    while (!delta.IsNull)
-                    {
-                        if (delta.X != 0)
-                        {
-                            var u = delta.X / Math.Abs(delta.X);
-                            delta.X -= u;
-                            line.Item1.X += u;
-                        }
-                        if (delta.Y != 0)
-                        {
-                            var u = delta.Y / Math.Abs(delta.Y);
-                            delta.Y -= u;
-                            line.Item1.Y += u;
-                        }
-
-                        grid[line.Item1.X, line.Item1.Y]++;
-                    }
                 }
-
-                var count = 0;
-                for (int y = 0; y < grid.GetLength(1); y++)
-                {
-                    for (int x = 0; x < grid.GetLength(0); x++)
-                    {
-                        if (grid[x, y] > 1)
-                            count++;
-                    }
-                }
-
-                return count.ToString();
             }
 
-            public static string Solution2()
+            var count = 0;
+            for (int y = 0; y < grid.GetLength(1); y++)
             {
-                var lines = File.ReadLines($"{INPUT_PATH}day5.txt").Select(l =>
+                for (int x = 0; x < grid.GetLength(0); x++)
                 {
-                    var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    return (Point.Parse(p[0]), Point.Parse(p[1]));
-                });
+                    if (grid[x, y] > 1)
+                        count++;
+                }
+            }
 
-                int[,] grid = new int[1000, 1000];
+            return count.ToString();
+        }
 
-                foreach (var line in lines)
+        public string Solution2(string[] lines)
+        {
+            var rows = lines.Select(l =>
+            {
+                var p = l.Split(" -> ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                return (Point.Parse(p[0]), Point.Parse(p[1]));
+            });
+
+            int[,] grid = new int[1000, 1000];
+
+            foreach (var line in rows)
+            {
+                var delta = line.Item2 - line.Item1;
+
+                grid[line.Item1.X, line.Item1.Y]++;
+
+                while (!delta.IsNull)
                 {
-                    var delta = line.Item2 - line.Item1;
+                    if (delta.X != 0)
+                    {
+                        var u = delta.X / Math.Abs(delta.X);
+                        delta.X -= u;
+                        line.Item1.X += u;
+                    }
+                    if (delta.Y != 0)
+                    {
+                        var u = delta.Y / Math.Abs(delta.Y);
+                        delta.Y -= u;
+                        line.Item1.Y += u;
+                    }
 
                     grid[line.Item1.X, line.Item1.Y]++;
-
-                    while (!delta.IsNull)
-                    {
-                        if (delta.X != 0)
-                        {
-                            var u = delta.X / Math.Abs(delta.X);
-                            delta.X -= u;
-                            line.Item1.X += u;
-                        }
-                        if (delta.Y != 0)
-                        {
-                            var u = delta.Y / Math.Abs(delta.Y);
-                            delta.Y -= u;
-                            line.Item1.Y += u;
-                        }
-
-                        grid[line.Item1.X, line.Item1.Y]++;
-                    }
                 }
-
-                var count = 0;
-                for (int y = 0; y < grid.GetLength(1); y++)
-                {
-                    for (int x = 0; x < grid.GetLength(0); x++)
-                    {
-                        if (grid[x, y] > 1)
-                            count++;
-                    }
-                }
-
-                return count.ToString();
             }
 
-            private class Point
+            var count = 0;
+            for (int y = 0; y < grid.GetLength(1); y++)
             {
-                public int X { get; set; }
-                public int Y { get; set; }
-
-                public bool IsNull => X == 0 && Y == 0;
-
-                public Point(int x, int y)
+                for (int x = 0; x < grid.GetLength(0); x++)
                 {
-                    X = x;
-                    Y = y;
+                    if (grid[x, y] > 1)
+                        count++;
                 }
-
-                public static Point Parse(string str)
-                {
-                    var pos = str.Split(',');
-                    return new(int.Parse(pos[0]), int.Parse(pos[1]));
-                }
-
-                public static Point operator -(Point a, Point b) => new(a.X - b.X, a.Y - b.Y);
             }
+
+            return count.ToString();
+        }
+
+        private class Point
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+
+            public bool IsNull => X == 0 && Y == 0;
+
+            public Point(int x, int y)
+            {
+                X = x;
+                Y = y;
+            }
+
+            public static Point Parse(string str)
+            {
+                var pos = str.Split(',');
+                return new(int.Parse(pos[0]), int.Parse(pos[1]));
+            }
+
+            public static Point operator -(Point a, Point b) => new(a.X - b.X, a.Y - b.Y);
         }
     }
 }

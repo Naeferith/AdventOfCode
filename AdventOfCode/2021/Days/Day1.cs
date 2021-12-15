@@ -1,44 +1,42 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
-namespace AdventOfCode.Business
+namespace AdventOfCode.V2021
 {
-    internal sealed partial class AoC21
+    internal class Day1 : IDay
     {
-        private static class Day1
+        public string PuzzleName => "Sonar Sweep";
+
+        public string Solution1(string[] lines)
         {
-            public static string Solution1()
+            var depths = lines.Select(t => int.Parse(t));
+            var previous = depths.First();
+            var count = 0;
+
+            foreach (var depth in depths)
             {
-                var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
-                var previous = depths.First();
-                var count = 0;
-
-                foreach (var depth in depths)
-                {
-                    count += (depth > previous) ? 1 : 0;
-                    previous = depth;
-                }
-
-                return count.ToString();
+                count += (depth > previous) ? 1 : 0;
+                previous = depth;
             }
 
-            public static string Solution2()
+            return count.ToString();
+        }
+
+        public string Solution2(string[] lines)
+        {
+            const int SLIDE_SIZE = 3;
+
+            var depths = lines.Select(t => int.Parse(t));
+            var previous = depths.Take(SLIDE_SIZE).Sum();
+            var count = 0;
+
+            for (int i = 1; i < depths.Count() - (SLIDE_SIZE - 1); i++)
             {
-                const int slideSize = 3;
-
-                var depths = File.ReadLines($"{INPUT_PATH}day1.txt").Select(t => int.Parse(t));
-                var previous = depths.Take(slideSize).Sum();
-                var count = 0;
-
-                for (int i = 1; i < depths.Count() - (slideSize - 1); i++)
-                {
-                    var val = depths.Skip(i).Take(slideSize).Sum();
-                    count += (val > previous) ? 1 : 0;
-                    previous = val;
-                }
-
-                return count.ToString();
+                var val = depths.Skip(i).Take(SLIDE_SIZE).Sum();
+                count += (val > previous) ? 1 : 0;
+                previous = val;
             }
+
+            return count.ToString();
         }
     }
 }

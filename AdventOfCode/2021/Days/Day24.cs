@@ -1,22 +1,19 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
-namespace AdventOfCode.Business
+namespace AdventOfCode.V2021
 {
-    internal sealed partial class AoC21
+    internal class Day24 : IDay
     {
-        private static class Day24
+        public string PuzzleName => throw new System.NotImplementedException();
+
+        public string Solution1(string[] lines)
         {
-            public static string Solution1()
-            {
+            throw new System.NotImplementedException();
+        }
 
-                return string.Empty;
-            }
-            public static string Solution2()
-            {
-
-                return string.Empty;
-            }
+        public string Solution2(string[] lines)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

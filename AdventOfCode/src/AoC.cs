@@ -1,70 +1,56 @@
-﻿using AdventOfCode.Business;
-using System;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace AdventOfCode
 {
-    public abstract class AoC : IAoC
+    public class AoC : IAoC
     {
+        public int Year { get; }
+
+        private AoC(int year)
+        {
+            Year = year;
+        }
+
+        public string GetPuzzle(int day, int version)
+        {
+            if (day < 1 || day > 25)
+                throw new ArgumentOutOfRangeException(nameof(day));
+
+            var d = GetDay(day);
+            var input = File.ReadAllLines(Path(day));
+
+            return version switch
+            {
+                1 => d.Solution1(input),
+                2 => d.Solution2(input),
+                _ => throw new InvalidOperationException(nameof(version)),
+            };
+        }
+
+        private string Path(int day) => $@"./{Year}/Input/day{day}.txt";
+
+        private IDay GetDay(int day)
+        {
+            var dType = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.IsClass && (t.Namespace?.Equals($"{nameof(AdventOfCode)}.V{Year}") ?? false))
+                .FirstOrDefault(t => t.Name.Equals($"Day{day}"));
+
+            if (dType == null)
+                throw new NotImplementedException(nameof(day));
+
+            return Activator.CreateInstance(dType) as IDay;
+        }
+
         public static IAoC GetCalendar(int year)
         {
             return year switch
             {
-                2021 => new AoC21(),
+                2021 => new AoC(year),
                 _ => throw new NotImplementedException("Année incorrecte"),
             };
         }
-
-        #region Days
-        public abstract string Day1_1();
-        public abstract string Day1_2();
-        public abstract string Day2_1();
-        public abstract string Day2_2();
-        public abstract string Day3_1();
-        public abstract string Day3_2();
-        public abstract string Day4_1();
-        public abstract string Day4_2();
-        public abstract string Day5_1();
-        public abstract string Day5_2();
-        public abstract string Day6_1();
-        public abstract string Day6_2();
-        public abstract string Day7_1();
-        public abstract string Day7_2();
-        public abstract string Day8_1();
-        public abstract string Day8_2();
-        public abstract string Day9_1();
-        public abstract string Day9_2();
-        public abstract string Day10_1();
-        public abstract string Day10_2();
-        public abstract string Day11_1();
-        public abstract string Day11_2();
-        public abstract string Day12_1();
-        public abstract string Day12_2();
-        public abstract string Day13_1();
-        public abstract string Day13_2();
-        public abstract string Day14_1();
-        public abstract string Day14_2();
-        public abstract string Day15_1();
-        public abstract string Day15_2();
-        public abstract string Day16_1();
-        public abstract string Day16_2();
-        public abstract string Day17_1();
-        public abstract string Day17_2();
-        public abstract string Day18_1();
-        public abstract string Day18_2();
-        public abstract string Day19_1();
-        public abstract string Day19_2();
-        public abstract string Day20_1();
-        public abstract string Day20_2();
-        public abstract string Day21_1();
-        public abstract string Day21_2();
-        public abstract string Day22_1();
-        public abstract string Day22_2();
-        public abstract string Day23_1();
-        public abstract string Day23_2();
-        public abstract string Day24_1();
-        public abstract string Day24_2();
-        public abstract string Day25_1();
-        public abstract string Day25_2();
-        #endregion
     }
 }

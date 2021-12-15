@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
-namespace AdventOfCode.Business
+namespace AdventOfCode.V2021
 {
     internal sealed partial class AoC21
     {
-        private static class Day7
+        internal class Day7 : IDay
         {
-            public static string Solution1()
+            public string PuzzleName => "The Treachery of Whales";            
+
+            public string Solution1(string[] lines)
             {
-                var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
+                var crabs = lines.Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
 
                 var dict = new Dictionary<int, int>();
@@ -26,9 +27,10 @@ namespace AdventOfCode.Business
 
                 return dict.Values.Min().ToString();
             }
-            public static string Solution2()
+
+            public string Solution2(string[] lines)
             {
-                var crabs = File.ReadLines($"{INPUT_PATH}day7.txt").Select(t => t.Split(',').Select(n => int.Parse(n))).First();
+                var crabs = lines.Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
 
                 var dict = new Dictionary<int, int>();
@@ -43,6 +45,7 @@ namespace AdventOfCode.Business
 
                 return dict.Values.Min().ToString();
             }
+
             private static int CrabFuel(int delta)
                 => delta == 0 ? 0 : delta + CrabFuel(--delta);
         }
