@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="2021\Input\" />
+    <Folder Include="V2022\Input\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,55 +15,55 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="2021\Input\day1.txt">
+    <None Update="V2021\Input\day1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day10.txt">
+    <None Update="V2021\Input\day10.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day11.txt">
+    <None Update="V2021\Input\day11.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day12.txt">
+    <None Update="V2021\Input\day12.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day13.txt">
+    <None Update="V2021\Input\day13.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day14.txt">
+    <None Update="V2021\Input\day14.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day15.txt">
+    <None Update="V2021\Input\day15.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day16.txt">
+    <None Update="V2021\Input\day16.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day17.txt">
+    <None Update="V2021\Input\day17.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day2.txt">
+    <None Update="V2021\Input\day2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day3.txt">
+    <None Update="V2021\Input\day3.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day4.txt">
+    <None Update="V2021\Input\day4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day5.txt">
+    <None Update="V2021\Input\day5.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day6.txt">
+    <None Update="V2021\Input\day6.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day7.txt">
+    <None Update="V2021\Input\day7.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day8.txt">
+    <None Update="V2021\Input\day8.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="2021\Input\day9.txt">
+    <None Update="V2021\Input\day9.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
