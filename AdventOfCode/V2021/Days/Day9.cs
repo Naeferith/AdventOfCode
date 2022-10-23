@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AdventOfCode.Core;
+using System;
 using System.Collections.Generic;
 #if DEBUG
 using System.Drawing;
 #endif
 using System.Linq;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal class Day9 : IDay
     {
@@ -59,7 +60,7 @@ namespace AdventOfCode.V2021
                     x = 0;
                     foreach (var num in line)
                     {
-                        var brush = (num == 9) ? Brushes.Red : Brushes.Blue;
+                        var brush = num == 9 ? Brushes.Red : Brushes.Blue;
 
                         if (num == 9 || bazins.Select(b => b.Contains(new Point(x, y))).Aggregate(false, (b, c) => b |= c))
                             gfx.FillRectangle(brush, x, y, 1, 1);

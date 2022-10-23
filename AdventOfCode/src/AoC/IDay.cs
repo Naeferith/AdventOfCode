@@ -1,5 +1,4 @@
-﻿
-namespace AdventOfCode
+﻿namespace AdventOfCode.Core
 {
     public interface IDay
     {

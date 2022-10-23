@@ -1,14 +1,15 @@
-﻿using System;
+﻿using AdventOfCode.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal sealed partial class AoC21
     {
         internal class Day7 : IDay
         {
-            public string PuzzleName => "The Treachery of Whales";            
+            public string PuzzleName => "The Treachery of Whales";
 
             public string Solution1(string[] lines)
             {

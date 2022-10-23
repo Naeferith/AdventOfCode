@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AdventOfCode.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal class Day13 : IDay
     {

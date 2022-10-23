@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace AdventOfCode
+namespace AdventOfCode.Core
 {
     public class AoC : IAoC
     {
@@ -26,16 +26,16 @@ namespace AdventOfCode
             {
                 1 => d.Solution1(input),
                 2 => d.Solution2(input),
-                _ => throw new InvalidOperationException(nameof(version)),
+                _ => throw new ArgumentOutOfRangeException(nameof(version)),
             };
         }
 
-        private string Path(int day) => $@"./{Year}/Input/day{day}.txt";
+        private string Path(int day) => $@"./V{Year}/Input/day{day}.txt";
 
         private IDay GetDay(int day)
         {
             var dType = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.IsClass && (t.Namespace?.Equals($"{nameof(AdventOfCode)}.V{Year}") ?? false))
+                .Where(t => t.IsClass && (t.Namespace?.Equals($"{nameof(AdventOfCode)}.V{Year}.Days") ?? false))
                 .FirstOrDefault(t => t.Name.Equals($"Day{day}"));
 
             if (dType == null)
@@ -44,13 +44,6 @@ namespace AdventOfCode
             return Activator.CreateInstance(dType) as IDay;
         }
 
-        public static IAoC GetCalendar(int year)
-        {
-            return year switch
-            {
-                2021 => new AoC(year),
-                _ => throw new NotImplementedException("Année incorrecte"),
-            };
-        }
+        public static IAoC GetCalendar(int year) => new AoC(year);
     }
 }

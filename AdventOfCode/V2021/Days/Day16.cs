@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal class Day16 : IDay
     {
@@ -18,7 +18,7 @@ namespace AdventOfCode.V2021
         {
             var packet = string.Join(string.Empty, lines[0].Select(c => Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0')));
             return f.Invoke(Parse(packet, out var _));
-        } 
+        }
 
         private static Packet Parse(string packet, out int parsedChars)
         {
@@ -118,9 +118,9 @@ namespace AdventOfCode.V2021
                         1 => SubPackets.Select(p => p.ComputedData).Aggregate(1L, (a, p) => a * p),
                         2 => SubPackets.Min(p => p.ComputedData),
                         3 => SubPackets.Max(p => p.ComputedData),
-                        5 => (SubPackets[0].ComputedData > SubPackets[1].ComputedData) ? 1 : 0,
-                        6 => (SubPackets[0].ComputedData < SubPackets[1].ComputedData) ? 1 : 0,
-                        7 => (SubPackets[0].ComputedData == SubPackets[1].ComputedData) ? 1 : 0,
+                        5 => SubPackets[0].ComputedData > SubPackets[1].ComputedData ? 1 : 0,
+                        6 => SubPackets[0].ComputedData < SubPackets[1].ComputedData ? 1 : 0,
+                        7 => SubPackets[0].ComputedData == SubPackets[1].ComputedData ? 1 : 0,
                         _ => Convert.ToInt64(LiteralData, 2),
                     };
                 }

@@ -1,8 +1,9 @@
-﻿using Dijkstra.NET.Graph.Simple;
+﻿using AdventOfCode.Core;
+using Dijkstra.NET.Graph.Simple;
 using Dijkstra.NET.ShortestPath;
 using System.Linq;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal class Day15 : IDay
     {
@@ -26,8 +27,8 @@ namespace AdventOfCode.V2021
             {
                 for (int x = 0; x < width; x++)
                 {
-                    var s = (x / widthOne) + (y / heightOne);
-                    var val = ((input.ElementAt(y % heightOne).ElementAt(x % widthOne) + s - 1) % 9) + 1;
+                    var s = x / widthOne + y / heightOne;
+                    var val = (input.ElementAt(y % heightOne).ElementAt(x % widthOne) + s - 1) % 9 + 1;
                     tiles[y, x] = (short)val;
                 }
             }
@@ -56,6 +57,6 @@ namespace AdventOfCode.V2021
             return graph;
         }
 
-        
+
     }
 }

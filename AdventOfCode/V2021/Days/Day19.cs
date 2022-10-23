@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using AdventOfCode.Core;
+using System.Linq;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
-    internal class Day20 : IDay
+    internal class Day19 : IDay
     {
         public string PuzzleName => throw new System.NotImplementedException();
 

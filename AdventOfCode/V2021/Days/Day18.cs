@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AdventOfCode.Core;
 using System.Linq;
 
-namespace AdventOfCode.V2021
+namespace AdventOfCode.V2021.Days
 {
     internal class Day18 : IDay
     {
