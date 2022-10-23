@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Core
+﻿namespace AdventOfCode.Core.AoC
 {
     public interface IAoC
     {

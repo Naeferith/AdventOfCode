@@ -1,5 +1,6 @@
-﻿using AdventOfCode.Core;
-using System.Linq;
+﻿using AdventOfCode.Core.AoC;
+using System;
+using System.Collections.Generic;
 
 namespace AdventOfCode.V2021.Days
 {
@@ -186,12 +187,12 @@ namespace AdventOfCode.V2021.Days
                 //ExplodeSpread(Parent, this, n => n.Left);
                 //ExplodeSpread(Parent, this, n => n.Right);
 
-                var regLeft  = Parent.FirstRegular(n => n.Left);
+                var regLeft = Parent.FirstRegular(n => n.Left);
                 var regRight = Parent.FirstRegular(n => n.Right);
 
                 if (regLeft != null)
                 {
-                    regLeft.Value += (Left as SnailfishValue).Value; 
+                    regLeft.Value += (Left as SnailfishValue).Value;
                 }
 
                 if (regRight != null)
@@ -295,7 +296,7 @@ namespace AdventOfCode.V2021.Days
                     k.Value += ((SnailfishValue)direction.Invoke(exploding)).Value;
                     return true;
                 }
-                    
+
 
                 return ExplodeSpread(work.Parent, exploding, child);
             }
@@ -322,7 +323,7 @@ namespace AdventOfCode.V2021.Days
             {
                 if (root is SnailfishValue)
                     return root;
-                    //return root.Parent.Left.GetType() != root.Parent.Right.GetType() ? root : null;
+                //return root.Parent.Left.GetType() != root.Parent.Right.GetType() ? root : null;
 
                 return Search(from.Invoke(root as SnailfishNumber), from, to) ?? Search(to.Invoke(root as SnailfishNumber), from, to);
             }

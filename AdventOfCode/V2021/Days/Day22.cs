@@ -1,7 +1,7 @@
-﻿using Octree;
+﻿using AdventOfCode.Core.AoC;
+using Octree;
 using System;
 using System.Collections.Generic;
-using AdventOfCode.Core;
 using System.Linq;
 
 namespace AdventOfCode.V2021.Days
@@ -12,7 +12,7 @@ namespace AdventOfCode.V2021.Days
 
         public string Solution1(string[] lines)
         {
-            bool[,,] core = new bool[100,100,100];
+            bool[,,] core = new bool[100, 100, 100];
 
             foreach (var line in lines)
             {

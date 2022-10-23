@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Utils;
+﻿using AdventOfCode.Core.AoC;
+using AdventOfCode.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

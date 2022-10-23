@@ -1,5 +1,4 @@
-﻿using AdventOfCode.Core;
-using System.Linq;
+﻿using AdventOfCode.Core.AoC;
 
 namespace AdventOfCode.V2021.Days
 {

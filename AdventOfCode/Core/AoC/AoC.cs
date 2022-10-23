@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace AdventOfCode.Core
+namespace AdventOfCode.Core.AoC
 {
     public class AoC : IAoC
     {

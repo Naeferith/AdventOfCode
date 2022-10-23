@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Core;
+﻿using AdventOfCode.Core.AoC;
 using Dijkstra.NET.Graph.Simple;
 using Dijkstra.NET.ShortestPath;
 using System.Linq;

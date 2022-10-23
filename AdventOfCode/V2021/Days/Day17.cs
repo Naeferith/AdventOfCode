@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AdventOfCode.Core.AoC;
+using System;
 using System.Collections.Generic;
-using AdventOfCode.Core;
 using System.Linq;
 
 namespace AdventOfCode.V2021.Days
@@ -70,7 +70,7 @@ namespace AdventOfCode.V2021.Days
                         c += group.Count();
                         break;
                     }
-                        
+
                 }
             }
 

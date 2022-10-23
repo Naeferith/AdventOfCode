@@ -1,4 +1,6 @@
-﻿using AdventOfCode.Core;
+﻿using AdventOfCode.Core.AoC;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.V2021.Days
@@ -104,7 +106,7 @@ namespace AdventOfCode.V2021.Days
 
                     Turn(np2, p2val.Key, 21);
 
-                    yield return ((np1, np2), p1val.Value*p2val.Value);
+                    yield return ((np1, np2), p1val.Value * p2val.Value);
                 }
             }
         }
