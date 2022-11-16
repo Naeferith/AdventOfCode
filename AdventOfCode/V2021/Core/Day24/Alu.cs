@@ -14,6 +14,7 @@ namespace AdventOfCode.V2021.Core.Day24
         public readonly AluData _data;
 
         private readonly List<ICommand> _instructions;
+        private readonly List<Universe> _universes;
 
         public List<List<ICommand>> Chunks { get; }
 
@@ -26,6 +27,7 @@ namespace AdventOfCode.V2021.Core.Day24
         public Alu(string[][] instructions)
         {
             _instructions = new List<ICommand>(instructions.Length);
+            _universes = new List<Universe>();
             _data = new AluData();
             Chunks = new List<List<ICommand>>();
 
@@ -53,6 +55,9 @@ namespace AdventOfCode.V2021.Core.Day24
             var commands = Chunks.SelectMany(c => c).Select(c => c.Compute()).ToArray();
             var block = Expression.Block(commands);
 
+            // Universe
+            _universes.Add(new Universe(Chunks.Count));
+
             // Rewrite
             Expression wExp = Expression.Constant(0);
             Expression xExp = Expression.Constant(0);
@@ -65,21 +70,7 @@ namespace AdventOfCode.V2021.Core.Day24
 
                 if (rExp is MemberExpression r)
                 {
-                    switch (r.Member.Name)
-                    {
-                        case nameof(AluData.W):
-                            rExp = wExp;
-                            break;
-                        case nameof(AluData.X):
-                            rExp = xExp;
-                            break;
-                        case nameof(AluData.Y):
-                            rExp = yExp;
-                            break;
-                        case nameof(AluData.Z):
-                            rExp = zExp;
-                            break;
-                    }
+                    rExp = GetExpressionOfMember(r.Member.Name, wExp, xExp, yExp, zExp);
                 }
 
                 switch (((MemberExpression)commands[i].Left).Member.Name)
@@ -147,7 +138,7 @@ namespace AdventOfCode.V2021.Core.Day24
             };
         }
 
-        private static void RewriteExpression(ref Expression lExp, Expression rExp, ref BinaryExpression command, 
+        private void RewriteExpression(ref Expression lExp, Expression rExp, ref BinaryExpression command, 
             Expression wExp, Expression xExp, Expression yExp, Expression zExp)
         {
             Expression final = command.Right;
@@ -155,7 +146,24 @@ namespace AdventOfCode.V2021.Core.Day24
             switch (command.NodeType)
             {
                 case ExpressionType.Assign:
-                    final = ExpressionRewriter.AssignRewrite(lExp, rExp, wExp, xExp, yExp, zExp);
+                    {
+                        final = ExpressionRewriter.AssignRewrite(lExp, rExp, wExp, xExp, yExp, zExp);
+
+                        if (final is ConditionalExpression condition)
+                        {
+                            var test = (BinaryExpression)condition.Test;
+
+                            var t_lExp = GetExpressionOfMember(((MemberExpression)test.Left).Member.Name, wExp, xExp, yExp, zExp);
+                            var t_rExp = GetExpressionOfMember(((MemberExpression)test.Right).Member.Name, wExp, xExp, yExp, zExp);
+
+                            // Assuming Right is ArrayIndex
+                            var uni = new Universe(Chunks.Count);
+                            var index = (int)((ConstantExpression)((BinaryExpression)t_rExp).Right).Value;
+                            uni.Serial[index] = (int)((ConstantExpression)t_lExp).Value;
+                            _universes.Add(uni);
+
+                        }
+                    }
                     break;
                 case ExpressionType.AddAssign:
                     final = ExpressionRewriter.AddRewrite(lExp, rExp);
@@ -175,6 +183,18 @@ namespace AdventOfCode.V2021.Core.Day24
                 command = Expression.Assign(command.Left, final);
 
             lExp = final;
+        }
+
+        private static Expression GetExpressionOfMember(string varName, 
+            Expression wExp, Expression xExp, Expression yExp, Expression zExp)
+        {
+            return varName switch
+            {
+                nameof(AluData.W) => wExp,
+                nameof(AluData.X) => xExp,
+                nameof(AluData.Y) => yExp,
+                nameof(AluData.Z) => zExp,
+            };
         }
     }
 
