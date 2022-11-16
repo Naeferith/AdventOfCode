@@ -1,4 +1,5 @@
-﻿using AdventOfCode.V2021.Core.Day24.Command;
+﻿using AdventOfCode.V2021.Core.Day24.Algebra;
+using AdventOfCode.V2021.Core.Day24.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace AdventOfCode.V2021.Core.Day24
 
         public List<List<ICommand>> Chunks { get; }
 
-        private readonly Action<AluData, int[]> _algorithm;
+        private readonly Func<int[], int> _algorithm;
 
         public bool IsValidSerial => _data.Z == 0;
 
@@ -100,19 +101,19 @@ namespace AdventOfCode.V2021.Core.Day24
             var b2 = Expression.Block(commands);
 
             // Compile
-            _algorithm = Expression.Lambda<Action<AluData, int[]>>(block, new ParameterExpression[] { AluData.Parameter, Serial }).Compile();
+            var baseAlgo = Expression.Lambda<Action<AluData, int[]>>(block, new ParameterExpression[] { AluData.Parameter, Serial }).Compile();
+            var zExpression = Expression.Lambda<Func<int[], int>>(((BinaryExpression)b2.Result).Right, Serial).Compile();
+
+            _algorithm = zExpression;
         }
 
         public bool Run(int[] serial)
         {
-            // Reset
-            _data.Reset();
-
             // Execute
-            _algorithm(_data, serial);
+            var z = _algorithm(serial);
 
             // Validity
-            return IsValidSerial;
+            return z == 0;
         }
 
         private ICommand GetCommand(string commandName, string storedVariable, string rightExpression)
@@ -154,19 +155,19 @@ namespace AdventOfCode.V2021.Core.Day24
             switch (command.NodeType)
             {
                 case ExpressionType.Assign:
-                    final = AssignRewrite(lExp, rExp, wExp, xExp, yExp, zExp);
+                    final = ExpressionRewriter.AssignRewrite(lExp, rExp, wExp, xExp, yExp, zExp);
                     break;
                 case ExpressionType.AddAssign:
-                    final = AddRewrite(lExp, rExp);
+                    final = ExpressionRewriter.AddRewrite(lExp, rExp);
                     break;
                 case ExpressionType.DivideAssign:
-                    final = DivideRewrite(lExp, rExp);
+                    final = ExpressionRewriter.DivideRewrite(lExp, rExp);
                     break;
                 case ExpressionType.ModuloAssign:
-                    final = ModuloRewrite(lExp, rExp);
+                    final = ExpressionRewriter.ModuloRewrite(lExp, rExp);
                     break;
                 case ExpressionType.MultiplyAssign:
-                    final = MultiplyRewrite(lExp, rExp);
+                    final = ExpressionRewriter.MultiplyRewrite(lExp, rExp);
                     break;
             }
 
@@ -174,110 +175,6 @@ namespace AdventOfCode.V2021.Core.Day24
                 command = Expression.Assign(command.Left, final);
 
             lExp = final;
-        }
-
-        private static Expression AssignRewrite(Expression lExp, Expression rExp,
-            Expression wExp, Expression xExp, Expression yExp, Expression zExp)
-        {
-            if (rExp is ConditionalExpression condition)
-            {
-                if (lExp is not ConstantExpression conditionLeft)
-                    return rExp;
-
-                BinaryExpression test = (BinaryExpression)condition.Test;
-                Expression conditionRight = test.Right;
-
-                if (test.Right is MemberExpression mem)
-                {
-                    switch (mem.Member.Name)
-                    {
-                        case nameof(AluData.W):
-                            conditionRight = wExp;
-                            break;
-                        case nameof(AluData.X):
-                            conditionRight = xExp;
-                            break;
-                        case nameof(AluData.Y):
-                            conditionRight = yExp;
-                            break;
-                        case nameof(AluData.Z):
-                            conditionRight = zExp;
-                            break;
-                    }
-                }
-
-                var lVal = (int)conditionLeft.Value;
-
-                if (conditionRight.NodeType == ExpressionType.ArrayIndex)
-                {
-                    if (lVal > 9)
-                        return condition.IfFalse;
-                }
-                else if (conditionRight is ConstantExpression constCRight)
-                {
-                    return ((int)constCRight.Value == lVal) ? condition.IfTrue : condition.IfFalse;
-                }
-            }
-
-            return rExp;
-        }
-
-        private static Expression AddRewrite(Expression lExp, Expression rExp)
-        {
-            var l = lExp as ConstantExpression;
-            var r = rExp as ConstantExpression;
-
-            if (l != null && (int)l.Value == 0)
-                return rExp;
-
-            if (r != null && (int)r.Value == 0)
-                return lExp;
-
-            if (l != null && r != null)
-                return Expression.Constant((int)l.Value + (int)r.Value);
-
-            return Expression.Add(lExp, rExp);
-        }
-
-        private static Expression MultiplyRewrite(Expression lExp, Expression rExp)
-        {
-            if (lExp is ConstantExpression l)
-            {
-                if ((int)l.Value == 0)
-                    return lExp;
-                if ((int)l.Value == 1)
-                    return rExp;
-            }
-
-            if (rExp is ConstantExpression r)
-            {
-                if ((int)r.Value == 0)
-                    return rExp;
-                if ((int)r.Value == 1)
-                    return lExp;
-            }
-
-            return rExp;
-        }
-
-        private static Expression DivideRewrite(Expression lExp, Expression rExp)
-        {
-            if (rExp is ConstantExpression r && (int)r.Value == 1)
-            {
-                return lExp;
-            }
-
-            return rExp;
-        }
-
-        private static Expression ModuloRewrite(Expression lExp, Expression rExp)
-        {
-            if (lExp is ConstantExpression l && (int)l.Value == 0)
-            {
-                return lExp;
-            }
-
-            return rExp;
         }
     }
 
