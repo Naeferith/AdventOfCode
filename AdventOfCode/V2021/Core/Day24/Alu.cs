@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace AdventOfCode.V2021.Core.Day24
 {
@@ -14,7 +15,7 @@ namespace AdventOfCode.V2021.Core.Day24
         public readonly AluData _data;
 
         private readonly List<ICommand> _instructions;
-        private readonly List<Universe> _universes;
+        private readonly List<Universe> _validUniverses;
 
         public List<List<ICommand>> Chunks { get; }
 
@@ -27,7 +28,6 @@ namespace AdventOfCode.V2021.Core.Day24
         public Alu(string[][] instructions)
         {
             _instructions = new List<ICommand>(instructions.Length);
-            _universes = new List<Universe>();
             _data = new AluData();
             Chunks = new List<List<ICommand>>();
 
@@ -55,40 +55,9 @@ namespace AdventOfCode.V2021.Core.Day24
             var commands = Chunks.SelectMany(c => c).Select(c => c.Compute()).ToArray();
             var block = Expression.Block(commands);
 
-            // Universe
-            _universes.Add(new Universe(Chunks.Count));
-
             // Rewrite
-            Expression wExp = Expression.Constant(0);
-            Expression xExp = Expression.Constant(0);
-            Expression yExp = Expression.Constant(0);
-            Expression zExp = Expression.Constant(0);
+            Rewrite(new Universe(Chunks.Count, commands));
 
-            for (int i = 0; i < commands.Length; i++)
-            {
-                Expression rExp = commands[i].Right;
-
-                if (rExp is MemberExpression r)
-                {
-                    rExp = GetExpressionOfMember(r.Member.Name, wExp, xExp, yExp, zExp);
-                }
-
-                switch (((MemberExpression)commands[i].Left).Member.Name)
-                {
-                    case nameof(AluData.W):
-                        RewriteExpression(ref wExp, rExp, ref commands[i], wExp, xExp, yExp, zExp);
-                        break;
-                    case nameof(AluData.X):
-                        RewriteExpression(ref xExp, rExp, ref commands[i], wExp, xExp, yExp, zExp);
-                        break;
-                    case nameof(AluData.Y):
-                        RewriteExpression(ref yExp, rExp, ref commands[i], wExp, xExp, yExp, zExp);
-                        break;
-                    case nameof(AluData.Z):
-                        RewriteExpression(ref zExp, rExp, ref commands[i], wExp, xExp, yExp, zExp);
-                        break;
-                }
-            }
             var b2 = Expression.Block(commands);
 
             // Compile
@@ -96,6 +65,32 @@ namespace AdventOfCode.V2021.Core.Day24
             var zExpression = Expression.Lambda<Func<int[], int>>(((BinaryExpression)b2.Result).Right, Serial).Compile();
 
             _algorithm = zExpression;
+        }
+
+        private void Rewrite(Universe universe)
+        {
+            var @continue = true;
+            for (int i = 0; @continue && i < universe.Instructions.Length; i++)
+            {
+                switch (((MemberExpression)universe.Instructions[i].Left).Member.Name)
+                {
+                    case nameof(AluData.W):
+                        @continue = RewriteExpression(ref universe.wExp, universe, i);
+                        break;
+                    case nameof(AluData.X):
+                        @continue = RewriteExpression(ref universe.xExp, universe, i);
+                        break;
+                    case nameof(AluData.Y):
+                        @continue = RewriteExpression(ref universe.yExp, universe, i);
+                        break;
+                    case nameof(AluData.Z):
+                        @continue = RewriteExpression(ref universe.zExp, universe, i);
+                        break;
+                }
+            }
+
+            if (@continue)
+                _validUniverses.Add(universe);
         }
 
         public bool Run(int[] serial)
@@ -138,30 +133,39 @@ namespace AdventOfCode.V2021.Core.Day24
             };
         }
 
-        private void RewriteExpression(ref Expression lExp, Expression rExp, ref BinaryExpression command, 
-            Expression wExp, Expression xExp, Expression yExp, Expression zExp)
+        private bool RewriteExpression(ref Expression lExp, Universe universe, int commandIndex)
         {
-            Expression final = command.Right;
+            Expression rExp = universe.Instructions[commandIndex].Right;
+            Expression final = universe.Instructions[commandIndex].Right;
 
-            switch (command.NodeType)
+            if (rExp is MemberExpression r)
+            {
+                rExp = universe.GetExpressionOfMember(r.Member.Name);
+            }
+
+            switch (universe.Instructions[commandIndex].NodeType)
             {
                 case ExpressionType.Assign:
                     {
-                        final = ExpressionRewriter.AssignRewrite(lExp, rExp, wExp, xExp, yExp, zExp);
+                        final = ExpressionRewriter.AssignRewrite(lExp, rExp, universe);
 
                         if (final is ConditionalExpression condition)
                         {
                             var test = (BinaryExpression)condition.Test;
 
-                            var t_lExp = GetExpressionOfMember(((MemberExpression)test.Left).Member.Name, wExp, xExp, yExp, zExp);
-                            var t_rExp = GetExpressionOfMember(((MemberExpression)test.Right).Member.Name, wExp, xExp, yExp, zExp);
+                            var t_lExp = universe.GetExpressionOfMember(((MemberExpression)test.Left).Member.Name);
+                            var t_rExp = universe.GetExpressionOfMember(((MemberExpression)test.Right).Member.Name);
 
-                            // Assuming Right is ArrayIndex
-                            var uni = new Universe(Chunks.Count);
-                            var index = (int)((ConstantExpression)((BinaryExpression)t_rExp).Right).Value;
-                            uni.Serial[index] = (int)((ConstantExpression)t_lExp).Value;
-                            _universes.Add(uni);
-
+                            if (t_lExp.IsAssignable())
+                            {
+                                // Assuming Right is ArrayIndex
+                                var index = (int)((ConstantExpression)((BinaryExpression)t_rExp).Right).Value;
+                                var value = (int)((ConstantExpression)t_lExp).Value;
+                                Rewrite(new Universe(universe, index, value));
+                                Rewrite(new Universe(universe, index, -value));
+                            }
+                            else
+                                return false;
                         }
                     }
                     break;
@@ -180,21 +184,10 @@ namespace AdventOfCode.V2021.Core.Day24
             }
 
             if (final != null)
-                command = Expression.Assign(command.Left, final);
+                universe.Instructions[commandIndex] = Expression.Assign(universe.Instructions[commandIndex].Left, final);
 
             lExp = final;
-        }
-
-        private static Expression GetExpressionOfMember(string varName, 
-            Expression wExp, Expression xExp, Expression yExp, Expression zExp)
-        {
-            return varName switch
-            {
-                nameof(AluData.W) => wExp,
-                nameof(AluData.X) => xExp,
-                nameof(AluData.Y) => yExp,
-                nameof(AluData.Z) => zExp,
-            };
+            return true;
         }
     }
 

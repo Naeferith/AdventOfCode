@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace AdventOfCode.V2021.Core.Day24.Algebra
 {
@@ -50,9 +52,63 @@ namespace AdventOfCode.V2021.Core.Day24.Algebra
             return false;
         }
 
-        public static Expression AssignRewrite(Expression lExp, Expression rExp,
-            Expression wExp, Expression xExp, Expression yExp, Expression zExp)
+        public static bool TryGetMinValue(this Expression expr, out int min)
         {
+            if (expr is ConstantExpression constant)
+            {
+                min = (int)constant.Value;
+                return true;
+            }
+
+            if (expr.NodeType == ExpressionType.ArrayIndex)
+            {
+                min = 1;
+                return true;
+            }
+
+            if (expr is BinaryExpression binary)
+            {
+                switch (binary.NodeType)
+                {
+                    case ExpressionType.Add:
+                        var sum = 0;
+
+                        if (binary.Left.TryGetMinValue(out var lMax))
+                        {
+                            sum += lMax;
+                        }
+
+                        if (binary.Right.TryGetMinValue(out var rMax))
+                        {
+                            sum += rMax;
+                        }
+
+                        min = sum;
+                        return true;
+                    case ExpressionType.Divide:
+                        break;
+                    case ExpressionType.Modulo:
+                        min = 0;
+                        return true;
+                    case ExpressionType.Multiply:
+                        break;
+                }
+            }
+
+            min = 0;
+            return false;
+        }
+
+        public static bool IsAssignable(this Expression expr)
+        {
+            if (expr.TryGetMinValue(out var min) && min < 10)
+                return true;
+            return false;
+        }
+
+        public static Expression AssignRewrite(Expression lExp, Expression rExp, Universe universe)
+        {
+            // Equal Operation
             if (rExp is ConditionalExpression condition)
             {
                 if (lExp is not ConstantExpression conditionLeft)
@@ -63,21 +119,7 @@ namespace AdventOfCode.V2021.Core.Day24.Algebra
 
                 if (test.Right is MemberExpression mem)
                 {
-                    switch (mem.Member.Name)
-                    {
-                        case nameof(AluData.W):
-                            conditionRight = wExp;
-                            break;
-                        case nameof(AluData.X):
-                            conditionRight = xExp;
-                            break;
-                        case nameof(AluData.Y):
-                            conditionRight = yExp;
-                            break;
-                        case nameof(AluData.Z):
-                            conditionRight = zExp;
-                            break;
-                    }
+                    conditionRight = universe.GetExpressionOfMember(mem.Member.Name);
                 }
 
                 var lVal = (int)conditionLeft.Value;
@@ -91,6 +133,13 @@ namespace AdventOfCode.V2021.Core.Day24.Algebra
                 {
                     return ((int)constCRight.Value == lVal) ? condition.IfTrue : condition.IfFalse;
                 }
+            }
+            else if (rExp is BinaryExpression serialExp && serialExp.NodeType == ExpressionType.ArrayIndex)
+            {
+                var index = (int)((ConstantExpression)serialExp.Right).Value;
+                var value = universe.Serial[index];
+                if (value != default && !universe.ForbiddenValues[index].Contains(value))
+                    return Expression.Constant(value);
             }
 
             return rExp;
