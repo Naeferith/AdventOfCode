@@ -8,8 +8,8 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var calendar = AoC.GetCalendar(2021);
-            Console.WriteLine(calendar.GetPuzzle(24, 1));
+            var calendar = AoC.GetCalendar(2022);
+            Console.WriteLine(calendar.GetPuzzle(1, 2));
             Console.ReadKey();
         }
 

@@ -1,20 +1,45 @@
 ﻿using AdventOfCode.Core.AoC;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
     internal class Day1 : IDay
     {
-        public string PuzzleName => throw new NotImplementedException();
+        public string PuzzleName => "Calorie Counting";
 
         public string Solution1(string[] lines)
         {
-            throw new NotImplementedException();
+            return GetCalories(lines).Max().ToString();
         }
 
         public string Solution2(string[] lines)
         {
-            throw new NotImplementedException();
+            var elves = GetCalories(lines);
+            elves.Sort();
+            return elves.TakeLast(3).Sum().ToString();
+        }
+
+        private static List<int> GetCalories(string[] lines)
+        {
+            var elves = new List<int>();
+            var calories = 0;
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrEmpty(line))
+                {
+                    elves.Add(calories);
+                    calories = 0;
+                }
+                else
+                {
+                    calories += int.Parse(line);
+                }
+            }
+
+            return elves;
         }
     }
 }

@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="V2019\Input\" />
-    <Folder Include="V2022\Input\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="V2021\Input\day9.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="V2022\Input\day1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
