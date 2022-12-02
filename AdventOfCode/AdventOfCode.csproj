@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="V2019\Input\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dijkstra.NET" Version="1.2.1" />
     <PackageReference Include="NetOctree" Version="1.0.2" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
@@ -20,6 +16,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="V2019\Input\day2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="V2019\Input\day4.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="V2019\Input\day3.txt">
