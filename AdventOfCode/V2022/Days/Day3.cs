@@ -25,7 +25,7 @@ namespace AdventOfCode.V2022.Days
 
         private static int GetPriority(char c)
         {
-            if (c >= 'a' && c <= 'z')
+            if (c >= 'a')
                 c -= '`';
             else
             {
