@@ -9,29 +9,18 @@ namespace AdventOfCode.V2022.Days
 
         public string Solution1(string[] lines)
         {
-            var sum = 0;
-
-            foreach (var backpack in lines)
-            {
-                var part1 = backpack[..(backpack.Length/2)];
-                var part2 = backpack[(backpack.Length/2)..];
-
-                sum += GetPriority(part1.Intersect(part2).First());
-            }
-
-            return sum.ToString();
+            return lines
+                .Select(l => ( l[..(l.Length / 2)], l[(l.Length / 2)..]))
+                .Sum(b => GetPriority(b.Item1.Intersect(b.Item2).First()))
+                .ToString();
         }
 
         public string Solution2(string[] lines)
         {
-            var sum = 0;
-
-            foreach (var triple in lines.Chunk(3))
-            {
-                sum += GetPriority(triple[0].Intersect(triple[1]).Intersect(triple[2]).First());
-            }
-
-            return sum.ToString();
+            return lines
+                .Chunk(3)
+                .Sum(t => GetPriority(t[0].Intersect(t[1]).Intersect(t[2]).First()))
+                .ToString();
         }
 
         private static int GetPriority(char c)
