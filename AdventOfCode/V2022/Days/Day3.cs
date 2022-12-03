@@ -11,7 +11,7 @@ namespace AdventOfCode.V2022.Days
         {
             return lines
                 .Select(l => ( l[..(l.Length / 2)], l[(l.Length / 2)..]))
-                .Sum(b => GetPriority(b.Item1.Intersect(b.Item2).First()))
+                .Sum(b => GetPriority(b.Item1.Intersect(b.Item2).Single()))
                 .ToString();
         }
 
@@ -19,7 +19,7 @@ namespace AdventOfCode.V2022.Days
         {
             return lines
                 .Chunk(3)
-                .Sum(t => GetPriority(t[0].Intersect(t[1]).Intersect(t[2]).First()))
+                .Sum(t => GetPriority(t[0].Intersect(t[1]).Intersect(t[2]).Single()))
                 .ToString();
         }
 
