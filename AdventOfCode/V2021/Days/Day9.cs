@@ -44,34 +44,31 @@ namespace AdventOfCode.V2021.Days
                     };
                 bazins.Add(GetHighs(low, grid, ref bazin));
             }
-#if DEBUG
+#if TRACE
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
-            if (false)
+            using var bmp = new Bitmap(rows.First().Count(), rows.Count());
+            using var gfx = Graphics.FromImage(bmp);
+            gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
+            gfx.Clear(Color.Black);
+
+            int x = 0, y = 0;
+
+            foreach (var line in rows)
             {
-                using var bmp = new Bitmap(rows.First().Count(), rows.Count());
-                using var gfx = Graphics.FromImage(bmp);
-                gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.Default;
-                gfx.Clear(Color.Black);
-
-                int x = 0, y = 0;
-
-                foreach (var line in rows)
+                x = 0;
+                foreach (var num in line)
                 {
-                    x = 0;
-                    foreach (var num in line)
-                    {
-                        var brush = num == 9 ? Brushes.Red : Brushes.Blue;
+                    var brush = num == 9 ? Brushes.Red : Brushes.Blue;
 
-                        if (num == 9 || bazins.Select(b => b.Contains(new Point(x, y))).Aggregate(false, (b, c) => b |= c))
-                            gfx.FillRectangle(brush, x, y, 1, 1);
-                        else if (num < 9)
-                            Console.WriteLine($"Point : ({x},{y})");
-                        x++;
-                    }
-                    y++;
+                    if (num == 9 || bazins.Select(b => b.Contains(new Point(x, y))).Aggregate(false, (b, c) => b |= c))
+                        gfx.FillRectangle(brush, x, y, 1, 1);
+                    else if (num < 9)
+                        Console.WriteLine($"Point : ({x},{y})");
+                    x++;
                 }
-                bmp.Save("bmp.png");
+                y++;
             }
+            bmp.Save("bmp.png");
 #pragma warning restore CA1416 // Valider la compatibilité de la plateforme
 #endif
             return bazins.OrderByDescending(b => b.Count).Take(3).Select(b => b.Count).Aggregate(1, (s, c) => s * c).ToString();
@@ -151,7 +148,7 @@ namespace AdventOfCode.V2021.Days
             return highs;
         }
 
-        private class Point : IEquatable<Point>
+        private sealed class Point : IEquatable<Point>
         {
             public int X { get; }
             public int Y { get; }
@@ -167,17 +164,16 @@ namespace AdventOfCode.V2021.Days
                 if (obj == null || GetType() != obj.GetType())
                     return false;
 
-                Point other = obj as Point;
-                return other != null && other.X == X && other.Y == Y;
+                return obj is Point other && other.X == X && other.Y == Y;
             }
-
-            public override int GetHashCode() => HashCode.Combine(X, Y);
 
             public bool Equals(Point other)
             {
                 if (other == null) return false;
                 return X == other.X && Y == other.Y;
             }
+
+            public override int GetHashCode() => HashCode.Combine(X, Y);
         }
     }
 }

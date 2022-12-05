@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace AdventOfCode.V2021.Core.Day24
 {
@@ -14,7 +13,6 @@ namespace AdventOfCode.V2021.Core.Day24
 
         public readonly AluData _data;
 
-        private readonly List<ICommand> _instructions;
         private readonly List<Universe> _validUniverses;
 
         public List<List<ICommand>> Chunks { get; }
@@ -27,7 +25,8 @@ namespace AdventOfCode.V2021.Core.Day24
 
         public Alu(string[][] instructions)
         {
-            _instructions = new List<ICommand>(instructions.Length);
+            var insts = new List<ICommand>(instructions.Length);
+            _validUniverses = new List<Universe>();
             _data = new AluData();
             Chunks = new List<List<ICommand>>();
 
@@ -38,16 +37,16 @@ namespace AdventOfCode.V2021.Core.Day24
                 var lExp = instructions[i][1];
                 var rExp = instructions[i].Length < 3 ? string.Empty : instructions[i][2];
 
-                if (command == "inp" && _instructions.Any())
+                if (command == "inp" && insts.Any())
                 {
-                    Chunks.Add(_instructions);
-                    _instructions = new List<ICommand>();
+                    Chunks.Add(insts);
+                    insts = new List<ICommand>();
                 }
 
-                _instructions.Add(GetCommand(command, lExp, rExp));
+                insts.Add(GetCommand(command, lExp, rExp));
             }
 
-            Chunks.Add(_instructions);
+            Chunks.Add(insts);
 
             _data.Save();
 

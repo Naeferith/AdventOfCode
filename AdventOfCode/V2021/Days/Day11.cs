@@ -48,25 +48,23 @@ namespace AdventOfCode.V2021.Days
                 foreach (var flash in flashers)
                     spreaded += Spread(grid, flash.Item1, flash.Item2);
 
-                // Debug
-                if (false)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($"---------- Step {i + 1} ---------");
-                    Console.WriteLine();
+#if TRACE
+                Console.WriteLine();
+                Console.WriteLine($"---------- Step {i + 1} ---------");
+                Console.WriteLine();
 
-                    for (int y = 0; y < height; y++)
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
                     {
-                        for (int x = 0; x < width; x++)
-                        {
-                            Console.ForegroundColor = grid[x, y] == 0 ? ConsoleColor.Red : ConsoleColor.White;
-                            Console.Write(grid[x, y]);
-                        }
-                        Console.WriteLine();
+                        Console.ForegroundColor = grid[x, y] == 0 ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.Write(grid[x, y]);
                     }
                     Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
+#endif
 
                 sum += flashers.Count + spreaded;
             }
@@ -114,25 +112,23 @@ namespace AdventOfCode.V2021.Days
                 foreach (var flash in flashers)
                     spreaded += Spread(grid, flash.Item1, flash.Item2);
 
-                // Debug
-                if (false)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($"---------- Step {i} ---------");
-                    Console.WriteLine();
+#if TRACE
+                Console.WriteLine();
+                Console.WriteLine($"---------- Step {i} ---------");
+                Console.WriteLine();
 
-                    for (int y = 0; y < height; y++)
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
                     {
-                        for (int x = 0; x < width; x++)
-                        {
-                            Console.ForegroundColor = grid[x, y] == 0 ? ConsoleColor.Red : ConsoleColor.White;
-                            Console.Write(grid[x, y]);
-                        }
-                        Console.WriteLine();
+                        Console.ForegroundColor = grid[x, y] == 0 ? ConsoleColor.Red : ConsoleColor.White;
+                        Console.Write(grid[x, y]);
                     }
                     Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
+#endif
             } while (flashers.Count + spreaded != width * height);
 
             return i.ToString();
