@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace AdventOfCode
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
             var calendar = AoC.GetCalendar(2022);
-            Console.WriteLine(calendar.GetPuzzle(6, 2));
+            Console.WriteLine(calendar.GetPuzzle(7, 2));
             Console.ReadKey();
         }
 
