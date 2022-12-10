@@ -9,7 +9,7 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
             var calendar = AoC.GetCalendar(2022);
-            Console.WriteLine(calendar.GetPuzzle(9, 1));
+            Console.WriteLine(calendar.GetPuzzle(10, 2));
             Console.ReadKey();
         }
 
