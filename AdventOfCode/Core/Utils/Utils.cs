@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dijkstra.NET.Graph;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -34,6 +35,11 @@ namespace AdventOfCode.Core.Utils
                 res = res / Gcd(res, i) * i;
             }
             return res;
+        }
+
+        public static bool IsBetweenInclusive<T>(this T val, T lowerbould, T upperBound) where T : IBinaryInteger<T>
+        {
+            return val >= lowerbould && val <= upperBound;
         }
     }
 }
