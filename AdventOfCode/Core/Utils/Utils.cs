@@ -1,8 +1,5 @@
-﻿using Dijkstra.NET.Graph;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace AdventOfCode.Core.Utils
 {
@@ -16,30 +13,13 @@ namespace AdventOfCode.Core.Utils
                 .Select(x => x.Select(v => v.Value));
         }
 
-        public static T Gcd<T>(T a, T b) where T : IBinaryInteger<T>
-        {
-            while (b != default)
-            {
-                T temp = b;
-                b = a % b;
-                a = temp;
-            }
-            return a;
-        }
-
-        public static T Lcm<T>(IEnumerable<T> numerics) where T : IBinaryInteger<T>
-        {
-            var res = (T)Convert.ChangeType(1, typeof(T));
-            foreach (var i in numerics)
-            {
-                res = res / Gcd(res, i) * i;
-            }
-            return res;
-        }
-
-        public static bool IsBetweenInclusive<T>(this T val, T lowerbould, T upperBound) where T : IBinaryInteger<T>
-        {
-            return val >= lowerbould && val <= upperBound;
-        }
+        /// <summary>
+        /// Vérifie si le caratère est numérique.
+        /// </summary>
+        /// <param name="c">Le caractère à tester</param>
+        /// <returns>
+        ///     <see langword="true"/> si le caractère est compris entre 0 et 9, <see langword="false"/> sinon.
+        /// </returns>
+        public static bool IsNumeric(this char c) => c.IsBetweenInclusive('0', '9');
     }
 }

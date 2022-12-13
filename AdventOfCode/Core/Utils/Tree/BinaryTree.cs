@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Core.Utils
+﻿namespace AdventOfCode.Core.Utils.Tree
 {
     public class BinaryNode<T>
     {

@@ -58,7 +58,7 @@ namespace AdventOfCode.V2022.Core.Day11
 
         public void Inspect(IList<Monkey> monkeys)
         {
-            var lcm = Utils.Lcm(monkeys.Select(m => m.Divisor));
+            var lcm = Maths.Lcm(monkeys.Select(m => m.Divisor));
 
             InspectCount += Items.Count;
 
