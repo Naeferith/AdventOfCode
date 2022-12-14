@@ -40,6 +40,16 @@ namespace AdventOfCode.Core.Utils
         {
             return Math.Abs(value1.X - value2.X) + Math.Abs(value1.Y - value2.Y);
         }
+        public static int CrossProduct(Point point, Point value1, Point value2)
+        {
+            var dxc = point.X - value1.X;
+            var dyc = point.Y - value1.Y;
+
+            var dxl = value2.X - value1.X;
+            var dyl = value2.Y - value1.Y;
+
+            return dxc * dyl - dxl * dyc;
+        } 
         public static Point Divide(Point left, Point right)
         {
             return left / right;
@@ -109,7 +119,7 @@ namespace AdventOfCode.Core.Utils
 
         public override bool Equals(object obj)
         {
-            return obj is Point && Equals((Point)obj);
+            return obj is Point point && Equals(point);
         }
 
         public readonly override int GetHashCode()

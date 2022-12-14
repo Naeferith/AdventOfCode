@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Core.Utils
@@ -11,6 +12,25 @@ namespace AdventOfCode.Core.Utils
                 .Select((x, i) => new { Index = i, Value = x })
                 .GroupBy(x => x.Index / chunkSize)
                 .Select(x => x.Select(v => v.Value));
+        }
+
+        /// <summary>
+        /// Extrait les bornes inferieures et supérieures de l'<see cref="IEnumerable{T}"/>
+        /// </summary>
+        /// <typeparam name="T">Le type de l'énumeration</typeparam>
+        /// <param name="source">L'énumeration à parcourir</param>
+        /// <returns>Un tuple (min, max)</returns>
+        public static (T Lowest, T Highest) Bounds<T>(this IEnumerable<T> source) where T : IComparable<T>
+        {
+            T min = default, max = default;
+
+            foreach (var item in source)
+            {
+                if (item?.CompareTo(min) < 0) min = item;
+                else if (item?.CompareTo(max) > 0) max = item;
+            }
+
+            return (min, max);
         }
 
         /// <summary>

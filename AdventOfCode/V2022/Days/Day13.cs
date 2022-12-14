@@ -7,7 +7,7 @@ namespace AdventOfCode.V2022.Days
 {
     internal class Day13 : IDay
     {
-        private static readonly SignalComparer _comparer = new SignalComparer();
+        private static readonly SignalComparer _comparer = new();
         public string PuzzleName => "Distress Signal";
 
         public string Solution1(string[] lines)
