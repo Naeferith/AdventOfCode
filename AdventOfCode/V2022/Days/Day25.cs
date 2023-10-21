@@ -1,8 +1,8 @@
 ﻿using AdventOfCode.Core.AoC;
+using AdventOfCode.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Runtime.InteropServices;
 
 namespace AdventOfCode.V2022.Days
 {
@@ -36,7 +36,7 @@ namespace AdventOfCode.V2022.Days
             const string snafuTokens = "012=-";
 
             // Convert base 10 to 5
-            var b5 = $"0{NumberToStringBase(number, snafuTokens)}".ToCharArray();
+            var b5 = $"0{Maths.NumberToStringBase(number, snafuTokens)}".ToCharArray();
             var retain = false;
 
             for (int i = b5.Length - 1; i >= 0; i--)
@@ -54,27 +54,6 @@ namespace AdventOfCode.V2022.Days
             return b5[0] == '0'
                 ? b5[1..]
                 : b5;
-        }
-
-        private static ReadOnlySpan<char> NumberToStringBase<T>(T value, ReadOnlySpan<char> baseChars) where T : IBinaryInteger<T>
-        {
-            int max = Marshal.SizeOf(value) << 3;
-            var i = max;
-            var buffer = new char[i];
-            var targetBase = T.CreateChecked(baseChars.Length);
-
-            do
-            {
-                var (_, Remainder) = T.DivRem(value, targetBase);
-
-                buffer[--i] = baseChars[int.CreateChecked(Remainder)];
-                value /= targetBase;
-            } while (value > T.Zero);
-
-            var result = new char[max - i];
-            Array.Copy(buffer, i, result, 0, max - i);
-
-            return result;
         }
 
         public string Solution1(string[] lines)
