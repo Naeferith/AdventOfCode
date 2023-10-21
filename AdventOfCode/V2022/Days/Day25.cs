@@ -45,12 +45,10 @@ namespace AdventOfCode.V2022.Days
                 if (retain)
                 {
                     b5[i] = snafuTokens[(snafuTokens.IndexOf(b5[i]) + 1) % snafuTokens.Length];
-                    retain = b5[i] == '=' || b5[i] == '-' || b5[i] == '0';
+                    retain = b5[i] == '0';
                 }
-                else
-                {
-                    retain = b5[i] == '=' || b5[i] == '-';
-                }
+
+                retain |= b5[i] == '=' || b5[i] == '-';
             }
 
             return b5[0] == '0'
