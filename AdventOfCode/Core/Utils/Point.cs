@@ -126,5 +126,10 @@ namespace AdventOfCode.Core.Utils
         {
             return HashCode.Combine(X, Y);
         }
+
+        public override string ToString()
+        {
+            return $"{{x: {X}, y: {Y}}}";
+        }
     }
 }

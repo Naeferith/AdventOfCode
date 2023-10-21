@@ -41,5 +41,16 @@ namespace AdventOfCode.Core.Utils
         ///     <see langword="true"/> si le caractère est compris entre 0 et 9, <see langword="false"/> sinon.
         /// </returns>
         public static bool IsNumeric(this char c) => c.IsBetweenInclusive('0', '9');
+
+        public static IEnumerable<T[]> Permutate<T>(this IEnumerable<T> source)
+        {
+            return Inner_Permutate(source, Enumerable.Empty<T>());
+
+            IEnumerable<T[]> Inner_Permutate(IEnumerable<T> reminder, IEnumerable<T> prefix) =>
+                !reminder.Any() ? new[] { prefix.ToArray() } :
+                reminder.SelectMany((c, i) => Inner_Permutate(
+                    reminder.Take(i).Concat(reminder.Skip(i + 1)).ToArray(),
+                    prefix.Append(c)));
+        }
     }
 }
