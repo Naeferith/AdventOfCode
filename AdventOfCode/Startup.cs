@@ -8,6 +8,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace AdventOfCode
 {
+    /// <summary>
+    /// Application configurator
+    /// </summary>
     internal static class Startup
     {
         public static IHostBuilder ConfigureApplication(this IHostBuilder builder)

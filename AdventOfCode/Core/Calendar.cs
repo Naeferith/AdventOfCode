@@ -1,11 +1,11 @@
 ﻿using AdventOfCode.Core.Components;
-using Nae.Utils.Extensions;
+using AdventOfCode.Core.Extensions;
 using System.Collections;
 using System.Text;
 
 namespace AdventOfCode.Core
 {
-    public class Calendar : ICalendar, IEnumerable<IDay>
+    public class Calendar : ICalendar
     {
         private const string LineFormat = "║{0}│ {1}║";
         private const int OutputSize = 50;
@@ -63,7 +63,7 @@ namespace AdventOfCode.Core
             foreach (var day in this.Where(filter))
             {
                 strBuilder.AppendLine(string.Format(LineFormat,
-                    day.GetType().Name.PadCenter(LabelColSize),
+                    $"Day {day.DayNumber}".PadCenter(LabelColSize),
                     day.PuzzleName.PadCenter(ValueColSize)));
 
                 strBuilder.AppendLine(string.Format("║{0}┼─{1}║",

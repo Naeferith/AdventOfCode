@@ -74,5 +74,25 @@ namespace Nae.Utils.Maths
 
             return result;
         }
+
+        /// <summary>
+        /// Gives the name of the N-th Excel colum
+        /// </summary>
+        /// <param name="nb">N-th column</param>
+        /// <returns>The Excel name</returns>
+        public static string ExcelCol(int nb)
+        {
+            const int BASE = 26;
+
+            var s = new Stack<char>();
+
+            do
+            {
+                s.Push((char)((nb % BASE) + 'A'));
+                nb /= BASE;
+            } while (nb > 0);
+
+            return new string(s.ToArray());
+        }
     }
 }
