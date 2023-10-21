@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day12 : IDay
+    internal class Day12 : Day
     {
-        public string PuzzleName => "Passage Pathing";
+        public override string PuzzleName => "Passage Pathing";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var input = lines.Select(l =>
             {
@@ -41,7 +41,7 @@ namespace AdventOfCode.V2021.Days
             return paths.Count.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var input = lines.Select(l =>
             {

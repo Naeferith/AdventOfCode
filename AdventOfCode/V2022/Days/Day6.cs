@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day6 : IDay
+    internal class Day6 : Day
     {
-        public string PuzzleName => "Tuning Trouble";
+        public override string PuzzleName => "Tuning Trouble";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines[0], 4);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines[0], 14);
         }

@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day4 : IDay
+    internal class Day4 : Day
     {
-        public string PuzzleName => "Secure Container";
+        public override string PuzzleName => "Secure Container";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
             => Solution(lines, s => HasDoubleDigit(s) && DoesntDecrease(s));
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
             => Solution(lines, s => HasDoubleDigit(s) && DoesntDecrease(s) && IsOnlyDouble(s));
 
         private static string Solution(string[] lines, Func<string, bool> clause)

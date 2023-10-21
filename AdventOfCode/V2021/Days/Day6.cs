@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day6 : IDay
+    internal class Day6 : Day
     {
         private const short REPRODUCTION_DAYS = 7;
         private const short MATURITY_DAYS = 2;
 
-        public string PuzzleName => "Lanternfish";
+        public override string PuzzleName => "Lanternfish";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             const short SIMULATION_DAYS = 80;
 
@@ -36,7 +36,7 @@ namespace AdventOfCode.V2021.Days
             return fishes.Count.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             const int REPRODUCTION_DAYS = 7;
             const int MATURITY_DAYS = 2;

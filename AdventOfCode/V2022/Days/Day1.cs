@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day1 : IDay
+    internal class Day1 : Day
     {
-        public string PuzzleName => "Calorie Counting";
+        public override string PuzzleName => "Calorie Counting";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return GetCalories(lines).Max().ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var elves = GetCalories(lines);
             elves.Sort();

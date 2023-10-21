@@ -8,18 +8,18 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day14 : IDay
+    internal class Day14 : Day
     {
         private List<List<Point>> _rockPaths;
         private HashSet<Point> _solidPoints;
-        public string PuzzleName => "Regolith Reservoir";
+        public override string PuzzleName => "Regolith Reservoir";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines, false);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines, true);
         }

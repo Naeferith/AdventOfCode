@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day18 : IDay
+    internal class Day18 : Day
     {
-        public string PuzzleName => "Snailfish";
+        public override string PuzzleName => "Snailfish";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             SnailfishNumber s = null;
             foreach (var line in lines)
@@ -25,7 +25,7 @@ namespace AdventOfCode.V2021.Days
             return s.Magnitude.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             throw new System.NotImplementedException();
         }

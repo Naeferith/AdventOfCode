@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day1 : IDay
+    internal class Day1 : Day
     {
-        public string PuzzleName => "Sonar Sweep";
+        public override string PuzzleName => "Sonar Sweep";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var depths = lines.Select(t => int.Parse(t));
             var previous = depths.First();
@@ -22,7 +22,7 @@ namespace AdventOfCode.V2021.Days
             return count.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             const int SLIDE_SIZE = 3;
 

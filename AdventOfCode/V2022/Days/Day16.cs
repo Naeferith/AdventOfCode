@@ -6,12 +6,13 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day16 : IDay
+    internal class Day16 : Day
     {
         private Graph<int, string> _graph;
-        public string PuzzleName => "Proboscidea Volcanium";
 
-        public string Solution1(string[] lines)
+        public override string PuzzleName => "Proboscidea Volcanium";
+
+        protected override string Solution1(string[] lines)
         {
             Initialize(lines);
 
@@ -30,7 +31,7 @@ namespace AdventOfCode.V2022.Days
             return GetCalories(lines).Max().ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var elves = GetCalories(lines);
             elves.Sort();

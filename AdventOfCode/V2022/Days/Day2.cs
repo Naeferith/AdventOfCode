@@ -3,11 +3,11 @@ using AdventOfCode.V2022.Core.Day2;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day2 : IDay
+    internal class Day2 : Day
     {
-        public string PuzzleName => "Rock Paper Scissors";
+        public override string PuzzleName => "Rock Paper Scissors";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var myScore = 0;
 
@@ -24,7 +24,7 @@ namespace AdventOfCode.V2022.Days
             return myScore.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var myScore = 0;
 

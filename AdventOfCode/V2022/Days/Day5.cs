@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal partial class Day5 : IDay
+    internal partial class Day5 : Day
     {
         private Stack<char>[] _stacks;
         private IEnumerable<int[]> _moves;
 
-        public string PuzzleName => "Supply Stacks";
+        public override string PuzzleName => "Supply Stacks";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             Initialize(lines);
 
@@ -28,7 +28,7 @@ namespace AdventOfCode.V2022.Days
             return new string(_stacks.Select(s => s.Peek()).ToArray());
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             Initialize(lines);
 

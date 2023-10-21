@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day1 : IDay
+    internal class Day1 : Day
     {
-        public string PuzzleName => "The Tyranny of the Rocket Equation";
+        public override string PuzzleName => "The Tyranny of the Rocket Equation";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return lines
                 .Select(l => int.Parse(l))
@@ -15,7 +15,7 @@ namespace AdventOfCode.V2019.Days
                 .ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return lines
                 .Select(l => int.Parse(l))

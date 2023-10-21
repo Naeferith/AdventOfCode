@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day9 : IDay
+    internal class Day9 : Day
     {
-        public string PuzzleName => "Smoke Basin";
+        public override string PuzzleName => "Smoke Basin";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var rows = lines.Select(l => l.Select(c => c - '0'));
             var grid = new List<List<int>>();
@@ -27,7 +27,7 @@ namespace AdventOfCode.V2021.Days
             return points.Sum(i => i + 1).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var rows = lines.Select(l => l.Select(c => c - '0'));
             var grid = new List<List<int>>();

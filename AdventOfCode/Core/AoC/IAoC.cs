@@ -1,8 +1,12 @@
-﻿namespace AdventOfCode.Core.AoC
+﻿using System.Collections.Generic;
+using System.IO;
+
+namespace AdventOfCode.Core.AoC
 {
-    public interface IAoC
+    public interface IAoC : IReadOnlyList<IDay>
     {
         int Year { get; }
-        string GetPuzzle(int day, int version);
+
+        void PrintCalendar(TextWriter writer);
     }
 }

@@ -3,11 +3,11 @@ using System;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day8 : IDay
+    internal class Day8 : Day
     {
-        public string PuzzleName => "Treetop Tree House";
+        public override string PuzzleName => "Treetop Tree House";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var width = lines[0].Length;
             var height = lines.Length;
@@ -26,7 +26,7 @@ namespace AdventOfCode.V2022.Days
             return sum.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var width = lines[0].Length;
             var height = lines.Length;

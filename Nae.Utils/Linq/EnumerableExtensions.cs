@@ -4,14 +4,6 @@ namespace Nae.Utils.Linq
 {
     public static class EnumerableExtensions
     {
-        public static IEnumerable<IEnumerable<T>> ChunkBy<T>(this IEnumerable<T> source, int chunkSize)
-        {
-            return source
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / chunkSize)
-                .Select(x => x.Select(v => v.Value));
-        }
-
         /// <summary>
         /// Extrait les bornes inferieures et supérieures de l'<see cref="IEnumerable{T}"/>
         /// </summary>
@@ -20,7 +12,7 @@ namespace Nae.Utils.Linq
         /// <returns>Un tuple (min, max)</returns>
         public static (T Lowest, T Highest) Bounds<T>(this IEnumerable<T> source) where T : IComparable<T>
         {
-            T min = default, max = default;
+            T min = default!, max = default!;
 
             foreach (var item in source)
             {

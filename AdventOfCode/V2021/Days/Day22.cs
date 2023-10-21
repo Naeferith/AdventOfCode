@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day22 : IDay
+    internal class Day22 : Day
     {
-        public string PuzzleName => throw new NotImplementedException();
+        public override string PuzzleName => throw new NotImplementedException();
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             bool[,,] core = new bool[100, 100, 100];
 
@@ -42,7 +42,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             throw new NotImplementedException();
         }

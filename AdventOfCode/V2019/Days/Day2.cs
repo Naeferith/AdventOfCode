@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day2 : IDay
+    internal class Day2 : Day
     {
-        public string PuzzleName => "Program Alarm";
+        public override string PuzzleName => "Program Alarm";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var ints = lines.First().Split(',').Select(i => int.Parse(i)).ToArray();
 
@@ -22,7 +22,7 @@ namespace AdventOfCode.V2019.Days
             return ints[0].ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var ints = lines.First().Split(',').Select(i => int.Parse(i)).ToArray();
             int[] work = new int[ints.Length];

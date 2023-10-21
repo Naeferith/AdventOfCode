@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day17 : IDay
+    internal class Day17 : Day
     {
-        public string PuzzleName => "Trick Shot";
+        public override string PuzzleName => "Trick Shot";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var coords = lines[0].Split(',').Select(a => a.Split('=')[1].Split(".."))
                 .Select(k => (int.Parse(k[0]), int.Parse(k[1])));
@@ -18,7 +18,7 @@ namespace AdventOfCode.V2021.Days
             return Distance(-areaY.Item1 - 1).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var coords = lines[0].Split(',').Select(a => a.Split('=')[1].Split(".."))
                 .Select(k => (int.Parse(k[0]), int.Parse(k[1])));

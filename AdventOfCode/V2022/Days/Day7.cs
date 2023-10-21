@@ -5,19 +5,19 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day7 : IDay
+    internal class Day7 : Day
     {
         public SystemDirectory Root { get; set; }
-        public string PuzzleName => "No Space Left On Device";
+        public override string PuzzleName => "No Space Left On Device";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             Initialize(lines);
 
             return Root.GetRemovableDirectories().Sum().ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             Initialize(lines);
             var deltaSpace = 30000000 - (70000000 - Root.Size);

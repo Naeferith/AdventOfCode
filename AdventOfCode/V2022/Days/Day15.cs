@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day15 : IDay
+    internal class Day15 : Day
     {
         private Dictionary<Point, List<Point>> _beacons;
-        public string PuzzleName => "Beacon Exclusion Zone";
+        public override string PuzzleName => "Beacon Exclusion Zone";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             const int ROW_Y = 2000000;
 
@@ -40,7 +40,7 @@ namespace AdventOfCode.V2022.Days
             return absencePoints.Count.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             Initialize(lines);
 

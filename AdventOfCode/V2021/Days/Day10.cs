@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day10 : IDay
+    internal class Day10 : Day
     {
         private static readonly Dictionary<char, char> _tokens = new()
         {
@@ -14,9 +14,9 @@ namespace AdventOfCode.V2021.Days
             ['<'] = '>'
         };
 
-        public string PuzzleName => "Syntax Scoring";
+        public override string PuzzleName => "Syntax Scoring";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var sum = 0;
             foreach (var line in lines)
@@ -46,7 +46,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var scores = new SortedSet<ulong>();
             foreach (var line in lines.Where(l => !IsCorrupted(l, out var _)))

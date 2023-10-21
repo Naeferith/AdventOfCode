@@ -4,15 +4,15 @@ using Dijkstra.NET.ShortestPath;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day12 : IDay
+    internal class Day12 : Day
     {
         private Graph _graph;
         private uint StartNode { get; set; }
         private uint EndNode { get; set; }
 
-        public string PuzzleName => "Hill Climbing Algorithm";
+        public override string PuzzleName => "Hill Climbing Algorithm";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             Initialize(lines);
 
@@ -21,7 +21,7 @@ namespace AdventOfCode.V2022.Days
             return sp.Distance.ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             Initialize(lines);
 

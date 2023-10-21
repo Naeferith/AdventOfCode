@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day4 : IDay
+    internal class Day4 : Day
     {
-        public string PuzzleName => "Camp Cleanup";
+        public override string PuzzleName => "Camp Cleanup";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines, p => p.Item2 - p.Item1, SetIncluded);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines, p => p.Item1, Overlaps);
         }

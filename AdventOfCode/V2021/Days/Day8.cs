@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day8 : IDay
+    internal class Day8 : Day
     {
-        public string PuzzleName => "Seven Segment Search";
+        public override string PuzzleName => "Seven Segment Search";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var segments = lines.Select(t =>
             {
@@ -22,7 +22,7 @@ namespace AdventOfCode.V2021.Days
             return segments.Sum().ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var sum = 0;
             foreach (var line in lines)

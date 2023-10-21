@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day14 : IDay
+    internal class Day14 : Day
     {
-        public string PuzzleName => "Extended Polymerization";
+        public override string PuzzleName => "Extended Polymerization";
 
-        public string Solution1(string[] lines) => Solve(10, lines);
+        protected override string Solution1(string[] lines) => Solve(10, lines);
 
-        public string Solution2(string[] lines) => Solve(40, lines);
+        protected override string Solution2(string[] lines) => Solve(40, lines);
 
         private static string Solve(int steps, string[] input)
         {

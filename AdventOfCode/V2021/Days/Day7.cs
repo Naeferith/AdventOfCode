@@ -7,11 +7,11 @@ namespace AdventOfCode.V2021.Days
 {
     internal sealed partial class AoC21
     {
-        internal class Day7 : IDay
+        internal class Day7 : Day
         {
-            public string PuzzleName => "The Treachery of Whales";
+            public override string PuzzleName => "The Treachery of Whales";
 
-            public string Solution1(string[] lines)
+            protected override string Solution1(string[] lines)
             {
                 var crabs = lines.Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();
@@ -29,7 +29,7 @@ namespace AdventOfCode.V2021.Days
                 return dict.Values.Min().ToString();
             }
 
-            public string Solution2(string[] lines)
+            protected override string Solution2(string[] lines)
             {
                 var crabs = lines.Select(t => t.Split(',').Select(n => int.Parse(n))).First();
                 var max = crabs.Max();

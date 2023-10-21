@@ -3,7 +3,11 @@
     public interface IDay
     {
         string PuzzleName { get; }
-        string Solution1(string[] lines);
-        string Solution2(string[] lines);
+
+        void SetInput(string[] lines);
+
+        string Solution1();
+
+        string Solution2();
     }
 }

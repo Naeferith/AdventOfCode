@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day2 : IDay
+    internal class Day2 : Day
     {
-        public string PuzzleName => "Dive !";
+        public override string PuzzleName => "Dive !";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var movements = lines.Select(o =>
             {
@@ -38,7 +38,7 @@ namespace AdventOfCode.V2021.Days
             return (dPos * hPos).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var movements = lines.Select(o =>
             {

@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day3 : IDay
+    internal class Day3 : Day
     {
         private const int BINARY_SIZE = 12;
 
-        public string PuzzleName => "Binary Diagnostic";
+        public override string PuzzleName => "Binary Diagnostic";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var count = lines.Length;
             var gammaRate = new int[BINARY_SIZE];
@@ -27,7 +27,7 @@ namespace AdventOfCode.V2021.Days
             return (Convert.ToInt32(gammaStr, 2) * Convert.ToInt32(epsilonStr, 2)).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var count = lines.Length;
             var o2Enum = lines.ToList();

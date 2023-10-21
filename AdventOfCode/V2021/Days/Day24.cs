@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day24 : IDay
+    internal class Day24 : Day
     {
-        public string PuzzleName => "Arithmetic Logic Unit";
+        public override string PuzzleName => "Arithmetic Logic Unit";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var instructions = lines.Select(l => l.Split(' ')).ToArray();
             var alu = new Alu(instructions);
@@ -37,7 +37,7 @@ namespace AdventOfCode.V2021.Days
             return string.Empty;
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             throw new System.NotImplementedException();
         }

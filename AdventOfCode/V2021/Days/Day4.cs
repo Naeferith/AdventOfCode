@@ -5,11 +5,11 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day4 : IDay
+    internal class Day4 : Day
     {
-        public string PuzzleName => "Giant Squid";
+        public override string PuzzleName => "Giant Squid";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var pulls = lines.First().Split(',').Select(p => int.Parse(p));
 
@@ -68,7 +68,7 @@ namespace AdventOfCode.V2021.Days
             return string.Empty;
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             var pulls = lines.First().Split(',').Select(p => int.Parse(p));
 

@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day13 : IDay
+    internal class Day13 : Day
     {
         private static readonly SignalComparer _comparer = new();
-        public string PuzzleName => "Distress Signal";
+        public override string PuzzleName => "Distress Signal";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return lines
                 .Where(s => !string.IsNullOrEmpty(s))
@@ -20,7 +20,7 @@ namespace AdventOfCode.V2022.Days
                 .ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             const string d1 = "[[2]]";
             const string d2 = "[[6]]";

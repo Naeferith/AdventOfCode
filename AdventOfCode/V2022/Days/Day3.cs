@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day3 : IDay
+    internal class Day3 : Day
     {
-        public string PuzzleName => "Rucksack Reorganization";
+        public override string PuzzleName => "Rucksack Reorganization";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return lines
                 .Select(l => ( l[..(l.Length / 2)], l[(l.Length / 2)..]))
@@ -15,7 +15,7 @@ namespace AdventOfCode.V2022.Days
                 .ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return lines
                 .Chunk(3)

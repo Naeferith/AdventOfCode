@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day21 : IDay
+    internal class Day21 : Day
     {
         private static readonly Dictionary<int, int> DiceValues = new()
         {
@@ -18,9 +18,9 @@ namespace AdventOfCode.V2021.Days
             [9] = 1
         };
 
-        public string PuzzleName => "Dirac Dice";
+        public override string PuzzleName => "Dirac Dice";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             const int MAX = 1000;
             var p1 = new Player(int.Parse(string.Empty + lines[0].Last()));
@@ -37,7 +37,7 @@ namespace AdventOfCode.V2021.Days
             return (Math.Min(p1.Score, p2.Score) * dice.Rolls).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             const int MAX = 21;
             var p1 = new Player(int.Parse(string.Empty + lines[0].Last()));

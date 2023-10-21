@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day11 : IDay
+    internal class Day11 : Day
     {
         private List<Monkey> _monkeys;
 
-        public string PuzzleName => "Monkey in the Middle";
+        public override string PuzzleName => "Monkey in the Middle";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines, 20, true);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines, 10000, false);
         }

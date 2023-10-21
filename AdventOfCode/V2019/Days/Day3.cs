@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day3 : IDay
+    internal class Day3 : Day
     {
-        public string PuzzleName => "Crossed Wires";
+        public override string PuzzleName => "Crossed Wires";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var wire1 = BuildWire(lines[0].Split(','));
             var wire2 = BuildWire(lines[1].Split(','));
@@ -21,7 +21,7 @@ namespace AdventOfCode.V2019.Days
             return Point.ManhattanDistance(Point.Zero, closest).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             throw new NotImplementedException();
         }

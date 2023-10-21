@@ -6,9 +6,9 @@ using System.Numerics;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day25 : IDay
+    internal class Day25 : Day
     {
-        public string PuzzleName => "Full of Hot Air";
+        public override string PuzzleName => "Full of Hot Air";
 
         private static readonly IDictionary<char, int> SnafuToken = new Dictionary<char, int>
         {
@@ -56,7 +56,7 @@ namespace AdventOfCode.V2022.Days
                 : b5;
         }
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             var sum = 0L;
 
@@ -68,7 +68,7 @@ namespace AdventOfCode.V2022.Days
             return DecimalToSnafu(sum).ToString();
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             throw new NotImplementedException();
         }

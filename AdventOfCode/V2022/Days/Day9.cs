@@ -5,19 +5,19 @@ using System.Collections.Generic;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day9 : IDay
+    internal class Day9 : Day
     {
         private HashSet<Point> _tPositions;
         private Point[] _knots;
 
-        public string PuzzleName => "Rope Bridge";
+        public override string PuzzleName => "Rope Bridge";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines, 2);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines, 10);
         }

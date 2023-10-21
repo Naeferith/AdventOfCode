@@ -5,20 +5,20 @@ using System.Linq;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day10 : IDay
+    internal class Day10 : Day
     {
         private Cpu Cpu { get; set; }
         private int[] _observedCycles;
         private int Aggregate { get; set; }
 
-        public string PuzzleName => "Cathode-Ray Tube";
+        public override string PuzzleName => "Cathode-Ray Tube";
 
-        public string Solution1(string[] lines)
+        protected override string Solution1(string[] lines)
         {
             return Solution(lines, ObserveCycle, 20, 60, 100, 140, 180, 220);
         }
 
-        public string Solution2(string[] lines)
+        protected override string Solution2(string[] lines)
         {
             return Solution(lines, Draw, 40, 80, 120, 160, 200, 240);
         }
