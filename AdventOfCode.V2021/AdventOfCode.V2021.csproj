@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dijkstra.NET" Version="1.2.1" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Core\AdventOfCode.Core.csproj" />
+    <ProjectReference Include="..\Nae.Utils\Nae.Utils.csproj" />
+  </ItemGroup>
+
+    <ItemGroup>
+	    <ContentWithTargetPath Include="Input\*.txt">
+		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		    <TargetPath>Input\2021\%(Filename)%(Extension)</TargetPath>
+	    </ContentWithTargetPath >
+    </ItemGroup>
+
+</Project>

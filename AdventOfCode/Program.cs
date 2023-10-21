@@ -1,6 +1,6 @@
-﻿using AdventOfCode.Core.AoC;
-using System;
-using System.Collections.Generic;
+﻿using AdventOfCode.Core.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace AdventOfCode
 {
@@ -8,7 +8,11 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-            var calendar = AoC.GetCalendar(2022);
+            using IHost host = Host.CreateDefaultBuilder(args)
+                .ConfigureApplication()
+                .Build();
+
+            var calendar = host.Services.GetRequiredService<ICalendar>();
 
             calendar.PrintCalendar(Console.Out);
             //Console.WriteLine(calendar[25].Solution1());

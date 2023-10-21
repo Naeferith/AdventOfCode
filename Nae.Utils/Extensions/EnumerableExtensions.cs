@@ -1,6 +1,4 @@
-﻿using Nae.Utils.Maths;
-
-namespace Nae.Utils.Extensions
+﻿namespace Nae.Utils.Extensions
 {
     public static class EnumerableExtensions
     {
@@ -22,15 +20,6 @@ namespace Nae.Utils.Extensions
 
             return (min, max);
         }
-
-        /// <summary>
-        /// Vérifie si le caratère est numérique.
-        /// </summary>
-        /// <param name="c">Le caractère à tester</param>
-        /// <returns>
-        ///     <see langword="true"/> si le caractère est compris entre 0 et 9, <see langword="false"/> sinon.
-        /// </returns>
-        public static bool IsNumeric(this char c) => c.IsBetweenInclusive('0', '9');
 
         public static IEnumerable<T[]> Permutate<T>(this IEnumerable<T> source)
         {
