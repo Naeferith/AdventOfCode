@@ -3,22 +3,22 @@ using AdventOfCode.V2022.Core.Day9;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day9 : Day
+    internal class Day9 : IDay
     {
         private HashSet<Point> _tPositions;
 
         private Point[] _knots;
 
-        public override int DayNumber => 9;
+        public int DayNumber => 9;
 
-        public override string PuzzleName => "Rope Bridge";
+        public string PuzzleName => "Rope Bridge";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return Solution(lines, 2);
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return Solution(lines, 10);
         }

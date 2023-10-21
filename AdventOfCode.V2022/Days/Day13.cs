@@ -3,15 +3,15 @@ using AdventOfCode.V2022.Core.Day13;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day13 : Day
+    internal class Day13 : IDay
     {
         private static readonly SignalComparer _comparer = new();
 
-        public override int DayNumber => 13;
+        public int DayNumber => 13;
 
-        public override string PuzzleName => "Distress Signal";
+        public string PuzzleName => "Distress Signal";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return lines
                 .Where(s => !string.IsNullOrEmpty(s))
@@ -21,7 +21,7 @@ namespace AdventOfCode.V2022.Days
                 .ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             const string d1 = "[[2]]";
             const string d2 = "[[6]]";

@@ -4,15 +4,15 @@ using Dijkstra.NET.ShortestPath;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day15 : Day
+    internal class Day15 : IDay
     {
-        public override int DayNumber => 15;
+        public int DayNumber => 15;
 
-        public override string PuzzleName => "Chiton";
+        public string PuzzleName => "Chiton";
 
-        protected override string Solution1(string[] lines) => Solve(1, lines);
+        public string Solution1(string[] lines) => Solve(1, lines);
 
-        protected override string Solution2(string[] lines) => Solve(5, lines);
+        public string Solution2(string[] lines) => Solve(5, lines);
 
         private static string Solve(int size, string[] lines)
         {

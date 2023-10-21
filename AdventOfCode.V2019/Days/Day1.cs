@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day1 : Day
+    internal class Day1 : IDay
     {
-        public override int DayNumber => 1;
+        public int DayNumber => 1;
 
-        public override string PuzzleName => "The Tyranny of the Rocket Equation";
+        public string PuzzleName => "The Tyranny of the Rocket Equation";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return lines
                 .Select(int.Parse)
@@ -16,7 +16,7 @@ namespace AdventOfCode.V2019.Days
                 .ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return lines
                 .Select(int.Parse)

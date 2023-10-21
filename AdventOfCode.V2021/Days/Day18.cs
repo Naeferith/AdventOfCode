@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day18 : Day
+    internal class Day18 : IDay
     {
-        public override int DayNumber => 18;
+        public int DayNumber => 18;
 
-        public override string PuzzleName => "Snailfish";
+        public string PuzzleName => "Snailfish";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             SnailfishNumber s = null;
             foreach (var line in lines)
@@ -25,7 +25,7 @@ namespace AdventOfCode.V2021.Days
             return s.Magnitude.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             throw new System.NotImplementedException();
         }

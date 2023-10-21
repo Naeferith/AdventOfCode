@@ -2,7 +2,7 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day10 : Day
+    internal class Day10 : IDay
     {
         private static readonly Dictionary<char, char> _tokens = new()
         {
@@ -12,11 +12,11 @@ namespace AdventOfCode.V2021.Days
             ['<'] = '>'
         };
 
-        public override int DayNumber => 10;
+        public int DayNumber => 10;
 
-        public override string PuzzleName => "Syntax Scoring";
+        public string PuzzleName => "Syntax Scoring";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var sum = 0;
             foreach (var line in lines)
@@ -46,7 +46,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var scores = new SortedSet<ulong>();
             foreach (var line in lines.Where(l => !IsCorrupted(l, out var _)))

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AdventOfCode.Core
 {
-    public class Calendar : ICalendar
+    public class Calendar : ICalendar, IEnumerable<IDay>
     {
         private const string LineFormat = "║{0}│ {1}║";
         private const int OutputSize = 50;
@@ -14,26 +14,18 @@ namespace AdventOfCode.Core
         private const int ValueColSize = MaxLineSize - 2 - LabelColSize;
 
         private readonly IDay[] _days;
-        private readonly IInputAccessor _input;
 
         private int Year { get; }
 
-        public int Count => _days.Length;
-
-        public IDay this[int index] => _days[index - 1];
-
         public Calendar(
             IYearAccessor yearAccessor,
-            IInputAccessor inputAccessor,
             IEnumerable<IDay> days)
         {
             Year = yearAccessor.Year;
             _days = new IDay[25];
-            _input = inputAccessor;
 
             foreach (var day in days)
             {
-                day.SetInput(_input.GetInputLines(day.DayNumber));
                 _days[day.DayNumber - 1] = day;
             }
         }
@@ -48,7 +40,17 @@ namespace AdventOfCode.Core
             return _days.GetEnumerator();
         }
 
-        public void PrintCalendar(TextWriter writer)
+        public void PrintCalendar(TextWriter writer, IInputAccessor accessor)
+        {
+            PrintCalendar(writer, accessor, d => true);
+        }
+
+        public void PrintDay(TextWriter writer, int day, IInputAccessor accessor)
+        {
+            PrintCalendar(writer, accessor, d => d.DayNumber == day);
+        }
+
+        private void PrintCalendar(TextWriter writer, IInputAccessor accessor, Func<IDay, bool> filter)
         {
             var dblLine = string.Concat(Enumerable.Repeat('═', MaxLineSize));
 
@@ -58,7 +60,7 @@ namespace AdventOfCode.Core
             strBuilder.AppendLine($"║{$"Advent Of Code {Year}".PadCenter(MaxLineSize)}║");
             strBuilder.AppendLine($"╠{dblLine}╣");
 
-            foreach (var day in this)
+            foreach (var day in this.Where(filter))
             {
                 strBuilder.AppendLine(string.Format(LineFormat,
                     day.GetType().Name.PadCenter(LabelColSize),
@@ -68,14 +70,15 @@ namespace AdventOfCode.Core
                     string.Concat(Enumerable.Repeat('─', LabelColSize)),
                     string.Concat(Enumerable.Repeat('─', ValueColSize))));
 
-                AppendSolutions(strBuilder, day.Solution1, day.Solution2);
+                AppendSolutions(day.DayNumber, strBuilder, accessor, day.Solution1, day.Solution2);
                 strBuilder.AppendLine($"╠{dblLine}╣");
             }
 
+            strBuilder.AppendLine($"╚{dblLine}╝");
             writer.WriteLine(strBuilder.ToString());
         }
 
-        private static void AppendSolutions(StringBuilder builder, params Func<string>[] solutions)
+        private static void AppendSolutions(int day, StringBuilder builder, IInputAccessor accessor, params Func<string[], string>[] solutions)
         {
             for (int i = 0; i < solutions.Length; i++)
             {
@@ -83,7 +86,7 @@ namespace AdventOfCode.Core
 
                 try
                 {
-                    result = solutions[i]();
+                    result = solutions[i](accessor.GetInputLines(day));
                 }
                 catch (NotImplementedException)
                 {
@@ -91,7 +94,7 @@ namespace AdventOfCode.Core
                 }
                 finally
                 {
-                    builder.AppendLine(string.Format(LineFormat, $"Solution {i}".PadCenter(LabelColSize), result.PadRight(ValueColSize)));
+                    builder.AppendLine(string.Format(LineFormat, $"Solution {i + 1}".PadCenter(LabelColSize), result.PadRight(ValueColSize)));
                 }
             }
         }

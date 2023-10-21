@@ -3,15 +3,15 @@ using System.Text;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day16 : Day
+    internal class Day16 : IDay
     {
-        public override int DayNumber => 16;
+        public int DayNumber => 16;
 
-        public override string PuzzleName => "Packet Decoder";
+        public string PuzzleName => "Packet Decoder";
 
-        protected override string Solution1(string[] lines) => Solve(lines, p => p.VersionSum().ToString());
+        public string Solution1(string[] lines) => Solve(lines, p => p.VersionSum().ToString());
 
-        protected override string Solution2(string[] lines) => Solve(lines, p => p.ComputedData.ToString());
+        public string Solution2(string[] lines) => Solve(lines, p => p.ComputedData.ToString());
 
         private static string Solve(string[] lines, Func<Packet, string> f)
         {

@@ -2,15 +2,15 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day3 : Day
+    internal class Day3 : IDay
     {
         private const int BINARY_SIZE = 12;
 
-        public override int DayNumber => 3;
+        public int DayNumber => 3;
 
-        public override string PuzzleName => "Binary Diagnostic";
+        public string PuzzleName => "Binary Diagnostic";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var count = lines.Length;
             var gammaRate = new int[BINARY_SIZE];
@@ -27,7 +27,7 @@ namespace AdventOfCode.V2021.Days
             return (Convert.ToInt32(gammaStr, 2) * Convert.ToInt32(epsilonStr, 2)).ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var o2Enum = lines.ToList();
             var co2Enum = lines.ToList();

@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day17 : Day
+    internal class Day17 : IDay
     {
-        public override int DayNumber => 17;
+        public int DayNumber => 17;
 
-        public override string PuzzleName => "Trick Shot";
+        public string PuzzleName => "Trick Shot";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var coords = lines[0].Split(',').Select(a => a.Split('=')[1].Split(".."))
                 .Select(k => (int.Parse(k[0]), int.Parse(k[1])));
@@ -17,7 +17,7 @@ namespace AdventOfCode.V2021.Days
             return Distance(-areaY.Item1 - 1).ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var coords = lines[0].Split(',').Select(a => a.Split('=')[1].Split(".."))
                 .Select(k => (int.Parse(k[0]), int.Parse(k[1])));

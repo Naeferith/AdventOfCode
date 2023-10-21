@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day3 : Day
+    internal class Day3 : IDay
     {
-        public override int DayNumber => 3;
+        public int DayNumber => 3;
 
-        public override string PuzzleName => "Rucksack Reorganization";
+        public string PuzzleName => "Rucksack Reorganization";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return lines
                 .Select(l => (l[..(l.Length / 2)], l[(l.Length / 2)..]))
@@ -16,7 +16,7 @@ namespace AdventOfCode.V2022.Days
                 .ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return lines
                 .Chunk(3)

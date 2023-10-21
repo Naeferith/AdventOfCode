@@ -2,17 +2,17 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day6 : Day
+    internal class Day6 : IDay
     {
         private const short REPRODUCTION_DAYS = 7;
         private const short MATURITY_DAYS = 2;
 
-        public override int DayNumber => 6;
+        public int DayNumber => 6;
 
 
-        public override string PuzzleName => "Lanternfish";
+        public string PuzzleName => "Lanternfish";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             const short SIMULATION_DAYS = 80;
 
@@ -37,7 +37,7 @@ namespace AdventOfCode.V2021.Days
             return fishes.Count.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             const int SIMULATION_DAYS = 256;
 

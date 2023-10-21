@@ -2,18 +2,18 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day23 : Day
+    internal class Day23 : IDay
     {
-        public override int DayNumber => 23;
+        public int DayNumber => 23;
 
-        public override string PuzzleName => throw new System.NotImplementedException();
+        public string PuzzleName => throw new System.NotImplementedException();
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             throw new System.NotImplementedException();
         }

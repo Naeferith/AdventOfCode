@@ -3,20 +3,20 @@ using AdventOfCode.V2022.Core.Day11;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day11 : Day
+    internal class Day11 : IDay
     {
         private IList<Monkey> _monkeys;
 
-        public override int DayNumber => 11;
+        public int DayNumber => 11;
 
-        public override string PuzzleName => "Monkey in the Middle";
+        public string PuzzleName => "Monkey in the Middle";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return Solution(lines, 20, true);
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return Solution(lines, 10000, false);
         }

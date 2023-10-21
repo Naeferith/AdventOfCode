@@ -3,22 +3,22 @@ using AdventOfCode.V2022.Core.Day7;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day7 : Day
+    internal class Day7 : IDay
     {
         public SystemDirectory Root { get; set; }
 
-        public override int DayNumber => 7;
+        public int DayNumber => 7;
 
-        public override string PuzzleName => "No Space Left On Device";
+        public string PuzzleName => "No Space Left On Device";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             Initialize(lines);
 
             return Root.GetRemovableDirectories().Sum().ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             Initialize(lines);
             var deltaSpace = 30000000 - (70000000 - Root.Size);

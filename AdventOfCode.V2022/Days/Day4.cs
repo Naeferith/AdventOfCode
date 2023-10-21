@@ -2,18 +2,18 @@
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day4 : Day
+    internal class Day4 : IDay
     {
-        public override int DayNumber => 4;
+        public int DayNumber => 4;
 
-        public override string PuzzleName => "Camp Cleanup";
+        public string PuzzleName => "Camp Cleanup";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return Solution(lines, p => p.Item2 - p.Item1, SetIncluded);
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return Solution(lines, p => p.Item1, Overlaps);
         }

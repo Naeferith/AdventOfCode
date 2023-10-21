@@ -5,13 +5,13 @@ using System.Drawing;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day9 : Day
+    internal class Day9 : IDay
     {
-        public override int DayNumber => 9;
+        public int DayNumber => 9;
 
-        public override string PuzzleName => "Smoke Basin";
+        public string PuzzleName => "Smoke Basin";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var rows = lines.Select(l => l.Select(c => c - '0'));
             var grid = new List<List<int>>();
@@ -26,7 +26,7 @@ namespace AdventOfCode.V2021.Days
             return points.Sum(i => i + 1).ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var rows = lines.Select(l => l.Select(c => c - '0'));
             var grid = new List<List<int>>();

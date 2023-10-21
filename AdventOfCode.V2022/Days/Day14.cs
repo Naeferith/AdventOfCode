@@ -5,22 +5,22 @@ using Nae.Utils.Structs;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day14 : Day
+    internal class Day14 : IDay
     {
         private IList<List<Point>> _rockPaths;
 
         private HashSet<Point> _solidPoints;
 
-        public override int DayNumber => 14;
+        public int DayNumber => 14;
 
-        public override string PuzzleName => "Regolith Reservoir";
+        public string PuzzleName => "Regolith Reservoir";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return Solution(lines, false);
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return Solution(lines, true);
         }

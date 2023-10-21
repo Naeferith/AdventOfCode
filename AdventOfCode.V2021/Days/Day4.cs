@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day4 : Day
+    internal class Day4 : IDay
     {
-        public override int DayNumber => 4;
+        public int DayNumber => 4;
 
-        public override string PuzzleName => "Giant Squid";
+        public string PuzzleName => "Giant Squid";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var pulls = lines[0].Split(',').Select(int.Parse);
 
@@ -70,7 +70,7 @@ namespace AdventOfCode.V2021.Days
             return string.Empty;
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var pulls = lines[0].Split(',').Select(int.Parse);
 

@@ -3,7 +3,7 @@ using AdventOfCode.V2022.Core.Day10;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day10 : Day
+    internal class Day10 : IDay
     {
         private Cpu Cpu { get; set; }
 
@@ -11,16 +11,16 @@ namespace AdventOfCode.V2022.Days
 
         private int Aggregate { get; set; }
 
-        public override int DayNumber => 10;
+        public int DayNumber => 10;
 
-        public override string PuzzleName => "Cathode-Ray Tube";
+        public string PuzzleName => "Cathode-Ray Tube";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return Solution(lines, ObserveCycle, 20, 60, 100, 140, 180, 220);
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             return Solution(lines, Draw, 40, 80, 120, 160, 200, 240);
         }

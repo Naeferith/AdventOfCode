@@ -2,9 +2,9 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day21 : Day
+    internal class Day21 : IDay
     {
-        public override int DayNumber => 21;
+        public int DayNumber => 21;
 
         private static readonly Dictionary<int, int> DiceValues = new()
         {
@@ -17,9 +17,9 @@ namespace AdventOfCode.V2021.Days
             [9] = 1
         };
 
-        public override string PuzzleName => "Dirac Dice";
+        public string PuzzleName => "Dirac Dice";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             const int MAX = 1000;
             var p1 = new Player(int.Parse(string.Empty + lines[0].Last()));
@@ -36,7 +36,7 @@ namespace AdventOfCode.V2021.Days
             return (Math.Min(p1.Score, p2.Score) * dice.Rolls).ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             const int MAX = 21;
             var p1 = new Player(int.Parse(string.Empty + lines[0].Last()));

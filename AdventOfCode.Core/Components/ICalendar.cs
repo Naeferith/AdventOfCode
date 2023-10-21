@@ -1,7 +1,9 @@
 ﻿namespace AdventOfCode.Core.Components
 {
-    public interface ICalendar : IReadOnlyList<IDay>
+    public interface ICalendar
     {
-        void PrintCalendar(TextWriter writer);
+        void PrintCalendar(TextWriter writer, IInputAccessor accessor);
+
+        void PrintDay(TextWriter writer, int day, IInputAccessor accessor);
     }
 }

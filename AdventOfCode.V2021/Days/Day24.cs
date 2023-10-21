@@ -3,13 +3,13 @@ using AdventOfCode.V2021.Core.Day24;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day24 : Day
+    internal class Day24 : IDay
     {
-        public override int DayNumber => 24;
+        public int DayNumber => 24;
 
-        public override string PuzzleName => "Arithmetic Logic Unit";
+        public string PuzzleName => "Arithmetic Logic Unit";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var instructions = lines.Select(l => l.Split(' ')).ToArray();
             var alu = new Alu(instructions);
@@ -37,7 +37,7 @@ namespace AdventOfCode.V2021.Days
             return string.Empty;
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             throw new System.NotImplementedException();
         }

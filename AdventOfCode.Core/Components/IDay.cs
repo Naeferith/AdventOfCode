@@ -6,10 +6,8 @@
 
         string PuzzleName { get; }
 
-        void SetInput(string[] lines);
+        string Solution1(string[] lines);
 
-        string Solution1();
-
-        string Solution2();
+        string Solution2(string[] lines);
     }
 }

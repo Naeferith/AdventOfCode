@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day2 : Day
+    internal class Day2 : IDay
     {
-        public override int DayNumber => 2;
+        public int DayNumber => 2;
 
-        public override string PuzzleName => "Program Alarm";
+        public string PuzzleName => "Program Alarm";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var ints = lines[0].Split(',').Select(i => int.Parse(i)).ToArray();
 
@@ -22,7 +22,7 @@ namespace AdventOfCode.V2019.Days
             return ints[0].ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var ints = lines[0].Split(',').Select(i => int.Parse(i)).ToArray();
             int[] work = new int[ints.Length];

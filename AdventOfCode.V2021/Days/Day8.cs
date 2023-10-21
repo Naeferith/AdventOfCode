@@ -3,13 +3,13 @@ using System.Text;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day8 : Day
+    internal class Day8 : IDay
     {
-        public override int DayNumber => 8;
+        public int DayNumber => 8;
 
-        public override string PuzzleName => "Seven Segment Search";
+        public string PuzzleName => "Seven Segment Search";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var segments = lines.Select(t =>
             {
@@ -21,7 +21,7 @@ namespace AdventOfCode.V2021.Days
             return segments.Sum().ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var sum = 0;
             foreach (var line in lines)

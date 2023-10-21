@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day11 : Day
+    internal class Day11 : IDay
     {
-        public override int DayNumber => 11;
+        public int DayNumber => 11;
 
-        public override string PuzzleName => "Dumbo Octopus";
+        public string PuzzleName => "Dumbo Octopus";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             const int STEPS = 100;
             var input = lines.Select(l => l.Select(c => c - '0'));
@@ -71,7 +71,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var input = lines.Select(l => l.Select(c => c - '0'));
             var width = input.First().Count();

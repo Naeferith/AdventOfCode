@@ -2,16 +2,16 @@
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day4 : Day
+    internal class Day4 : IDay
     {
-        public override int DayNumber => 4;
+        public int DayNumber => 4;
 
-        public override string PuzzleName => "Secure Container";
+        public string PuzzleName => "Secure Container";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
             => Solution(lines, s => HasDoubleDigit(s) && DoesntDecrease(s));
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
             => Solution(lines, s => HasDoubleDigit(s) && DoesntDecrease(s) && IsOnlyDouble(s));
 
         private static string Solution(string[] lines, Func<string, bool> clause)

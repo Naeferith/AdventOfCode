@@ -3,17 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal partial class Day5 : Day
+    internal partial class Day5 : IDay
     {
         private Stack<char>[] _stacks;
 
         private IEnumerable<int[]> _moves;
 
-        public override int DayNumber => 5;
+        public int DayNumber => 5;
 
-        public override string PuzzleName => "Supply Stacks";
+        public string PuzzleName => "Supply Stacks";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             Initialize(lines);
 
@@ -28,7 +28,7 @@ namespace AdventOfCode.V2022.Days
             return new string(_stacks.Select(s => s.Peek()).ToArray());
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             Initialize(lines);
 

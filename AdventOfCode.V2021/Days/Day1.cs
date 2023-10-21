@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day1 : Day
+    internal class Day1 : IDay
     {
-        public override int DayNumber => 1;
+        public int DayNumber => 1;
 
-        public override string PuzzleName => "Sonar Sweep";
+        public string PuzzleName => "Sonar Sweep";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var depths = lines.Select(int.Parse);
             var previous = depths.First();
@@ -23,7 +23,7 @@ namespace AdventOfCode.V2021.Days
             return count.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             const int SLIDE_SIZE = 3;
 

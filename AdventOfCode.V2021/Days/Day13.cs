@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day13 : Day
+    internal class Day13 : IDay
     {
-        public override int DayNumber => 13;
+        public int DayNumber => 13;
 
-        public override string PuzzleName => "Transparent Origami";
+        public string PuzzleName => "Transparent Origami";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var dots = lines.Where(l => Regex.IsMatch(l, @"^\d")).Select(l =>
             {
@@ -77,7 +77,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var dots = lines.Where(l => Regex.IsMatch(l, @"^\d")).Select(l =>
             {

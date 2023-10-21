@@ -3,15 +3,15 @@ using Nae.Utils.Structs;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day15 : Day
+    internal class Day15 : IDay
     {
         private IDictionary<Point, List<Point>> _beacons;
 
-        public override int DayNumber => 15;
+        public int DayNumber => 15;
 
-        public override string PuzzleName => "Beacon Exclusion Zone";
+        public string PuzzleName => "Beacon Exclusion Zone";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             const int ROW_Y = 2000000;
 
@@ -40,7 +40,7 @@ namespace AdventOfCode.V2022.Days
             return absencePoints.Count.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             Initialize(lines);
 

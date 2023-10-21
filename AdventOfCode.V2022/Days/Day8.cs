@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day8 : Day
+    internal class Day8 : IDay
     {
-        public override int DayNumber => 8;
+        public int DayNumber => 8;
 
-        public override string PuzzleName => "Treetop Tree House";
+        public string PuzzleName => "Treetop Tree House";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var width = lines[0].Length;
             var height = lines.Length;
@@ -27,7 +27,7 @@ namespace AdventOfCode.V2022.Days
             return sum.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var width = lines[0].Length;
             var height = lines.Length;

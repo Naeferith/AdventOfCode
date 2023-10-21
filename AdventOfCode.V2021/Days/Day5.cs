@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day5 : Day
+    internal class Day5 : IDay
     {
-        public override int DayNumber => 5;
+        public int DayNumber => 5;
 
-        public override string PuzzleName => "Hydrothermal Venture";
+        public string PuzzleName => "Hydrothermal Venture";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var rows = lines.Select(l =>
             {
@@ -59,7 +59,7 @@ namespace AdventOfCode.V2021.Days
             return count.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var rows = lines.Select(l =>
             {

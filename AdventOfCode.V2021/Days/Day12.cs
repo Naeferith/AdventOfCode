@@ -2,13 +2,13 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day12 : Day
+    internal class Day12 : IDay
     {
-        public override int DayNumber => 12;
+        public int DayNumber => 12;
 
-        public override string PuzzleName => "Passage Pathing";
+        public string PuzzleName => "Passage Pathing";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var input = lines.Select(l =>
             {
@@ -40,7 +40,7 @@ namespace AdventOfCode.V2021.Days
             return paths.Count.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var input = lines.Select(l =>
             {

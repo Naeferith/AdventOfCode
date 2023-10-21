@@ -2,18 +2,18 @@
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day1 : Day
+    internal class Day1 : IDay
     {
-        public override int DayNumber => 1;
+        public int DayNumber => 1;
 
-        public override string PuzzleName => "Calorie Counting";
+        public string PuzzleName => "Calorie Counting";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             return GetCalories(lines).Max().ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             var elves = GetCalories(lines);
             elves.Sort();

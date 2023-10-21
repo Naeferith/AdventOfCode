@@ -3,15 +3,15 @@ using Dijkstra.NET.Graph;
 
 namespace AdventOfCode.V2022.Days
 {
-    internal class Day16 : Day
+    internal class Day16 : IDay
     {
         private Graph<int, string> _graph;
 
-        public override int DayNumber => 16;
+        public int DayNumber => 16;
 
-        public override string PuzzleName => "Proboscidea Volcanium";
+        public string PuzzleName => "Proboscidea Volcanium";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             Initialize(lines);
 
@@ -23,35 +23,14 @@ namespace AdventOfCode.V2022.Days
                     importantNodes.Add(node.Key);
             }
 
-            return GetCalories(lines).Max().ToString();
+            throw new NotImplementedException();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
-            var elves = GetCalories(lines);
-            elves.Sort();
-            return elves.TakeLast(3).Sum().ToString();
-        }
+            Initialize(lines);
 
-        private static List<int> GetCalories(string[] lines)
-        {
-            var elves = new List<int>();
-            var calories = 0;
-
-            foreach (var line in lines)
-            {
-                if (string.IsNullOrEmpty(line))
-                {
-                    elves.Add(calories);
-                    calories = 0;
-                }
-                else
-                {
-                    calories += int.Parse(line);
-                }
-            }
-
-            return elves;
+            throw new NotImplementedException();
         }
 
         private void Initialize(string[] lines)

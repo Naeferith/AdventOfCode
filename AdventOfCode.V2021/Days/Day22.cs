@@ -2,14 +2,14 @@
 
 namespace AdventOfCode.V2021.Days
 {
-    internal class Day22 : Day
+    internal class Day22 : IDay
     {
-        public override int DayNumber => 22;
+        public int DayNumber => 22;
 
 
-        public override string PuzzleName => throw new NotImplementedException();
+        public string PuzzleName => throw new NotImplementedException();
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             bool[,,] core = new bool[100, 100, 100];
 
@@ -43,7 +43,7 @@ namespace AdventOfCode.V2021.Days
             return sum.ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             throw new NotImplementedException();
         }

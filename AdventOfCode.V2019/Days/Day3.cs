@@ -4,13 +4,13 @@ using Nae.Utils.Structs;
 
 namespace AdventOfCode.V2019.Days
 {
-    internal class Day3 : Day
+    internal class Day3 : IDay
     {
-        public override int DayNumber => 3;
+        public int DayNumber => 3;
 
-        public override string PuzzleName => "Crossed Wires";
+        public string PuzzleName => "Crossed Wires";
 
-        protected override string Solution1(string[] lines)
+        public string Solution1(string[] lines)
         {
             var wire1 = BuildWire(lines[0].Split(','));
             var wire2 = BuildWire(lines[1].Split(','));
@@ -20,7 +20,7 @@ namespace AdventOfCode.V2019.Days
             return Point.ManhattanDistance(Point.Zero, closest).ToString();
         }
 
-        protected override string Solution2(string[] lines)
+        public string Solution2(string[] lines)
         {
             throw new NotImplementedException();
         }
