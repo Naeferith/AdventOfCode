@@ -1,14 +1,22 @@
-﻿using System;
+﻿using Nae.Utils.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace AdventOfCode.Core.AoC
 {
     public class AoC : IAoC
     {
+        private const string LineFormat = "║{0}│ {1}║";
+        private const int OutputSize = 50;
+        private const int MaxLineSize = OutputSize - 2;
+        private const int LabelColSize = 12;
+        private const int ValueColSize = MaxLineSize - 2 - LabelColSize;
+
         public int Year { get; }
 
         public int Count => _days.Length;
@@ -51,28 +59,49 @@ namespace AdventOfCode.Core.AoC
 
         public void PrintCalendar(TextWriter writer)
         {
-            writer.WriteLine($"-- Advent Of Code {Year} --");
+            var dblLine = string.Concat(Enumerable.Repeat('═', MaxLineSize));
+
+            var strBuilder = new StringBuilder();
+
+            strBuilder.AppendLine($"╔{dblLine}╗");
+            strBuilder.AppendLine($"║{$"Advent Of Code {Year}".PadCenter(MaxLineSize)}║");
+            strBuilder.AppendLine($"╠{dblLine}╣");
 
             foreach (var day in this)
             {
-                writer.WriteLine();
-                writer.WriteLine($" --- {day.GetType().Name} : {day.PuzzleName}");
+                strBuilder.AppendLine(string.Format(LineFormat,
+                    day.GetType().Name.PadCenter(LabelColSize),
+                    day.PuzzleName.PadCenter(ValueColSize)));
 
-                var s1 = "<Unresolved Yet>";
-                var s2 = "<Unresolved Yet>";
+                strBuilder.AppendLine(string.Format("║{0}┼─{1}║",
+                    string.Concat(Enumerable.Repeat('─', LabelColSize)),
+                    string.Concat(Enumerable.Repeat('─', ValueColSize))));
+
+                AppendSolutions(strBuilder, day.Solution1, day.Solution2);
+                strBuilder.AppendLine($"╠{dblLine}╣");
+            }
+
+            writer.WriteLine(strBuilder.ToString());
+        }
+
+        private static void AppendSolutions(StringBuilder builder, params Func<string>[] solutions)
+        {
+            for (int i = 0; i < solutions.Length; i++)
+            {
+                var result = "<Unresolved Yet>";
 
                 try
                 {
-                    s1 = day.Solution1();
-                    s2 = day.Solution2();
+                    result = solutions[i]();
                 }
                 catch (NotImplementedException)
                 {
                     // Consume
                 }
-
-                writer.WriteLine($"Solution 1 : {s1}");
-                writer.WriteLine($"Solution 2 : {s2}");
+                finally
+                {
+                    builder.AppendLine(string.Format(LineFormat, $"Solution {i}".PadCenter(LabelColSize), result.PadRight(ValueColSize)));
+                }
             }
         }
 
@@ -84,7 +113,7 @@ namespace AdventOfCode.Core.AoC
             public CalendarEnumerator(IDay[] days)
             {
                 _days = days;
-                _index = 0;
+                Reset();
             }
 
             public IDay Current => _days[_index];
@@ -111,7 +140,7 @@ namespace AdventOfCode.Core.AoC
 
             public void Reset()
             {
-                _index = 0;
+                _index = -1;
             }
         }
     }

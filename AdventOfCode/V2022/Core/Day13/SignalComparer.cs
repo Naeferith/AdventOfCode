@@ -1,4 +1,4 @@
-﻿using Nae.Utils.Linq;
+﻿using Nae.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 

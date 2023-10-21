@@ -1,5 +1,5 @@
 ﻿using AdventOfCode.Core.AoC;
-using Nae.Utils.Linq;
+using Nae.Utils.Extensions;
 using Nae.Utils.Maths;
 using Nae.Utils.Structs;
 using System;

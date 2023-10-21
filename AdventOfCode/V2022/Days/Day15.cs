@@ -8,7 +8,7 @@ namespace AdventOfCode.V2022.Days
 {
     internal class Day15 : Day
     {
-        private Dictionary<Point, List<Point>> _beacons;
+        private IDictionary<Point, List<Point>> _beacons;
         public override string PuzzleName => "Beacon Exclusion Zone";
 
         protected override string Solution1(string[] lines)
@@ -44,7 +44,7 @@ namespace AdventOfCode.V2022.Days
         {
             Initialize(lines);
 
-            return null;
+            throw new NotImplementedException();
         }
 
         private void Initialize(string[] lines)

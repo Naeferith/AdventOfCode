@@ -1,5 +1,4 @@
 ﻿using AdventOfCode.Core.AoC;
-using Nae.Utils.Linq;
 using Dijkstra.NET.Graph;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +21,6 @@ namespace AdventOfCode.V2022.Days
             {
                 if (node.Item > 0)
                     importantNodes.Add(node.Key);
-            }
-
-            foreach (var item in importantNodes.Permutate())
-            {
             }
 
             return GetCalories(lines).Max().ToString();

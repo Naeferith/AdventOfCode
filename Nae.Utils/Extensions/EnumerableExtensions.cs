@@ -1,6 +1,6 @@
 ﻿using Nae.Utils.Maths;
 
-namespace Nae.Utils.Linq
+namespace Nae.Utils.Extensions
 {
     public static class EnumerableExtensions
     {

@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.9" />
     <PackageReference Include="Dijkstra.NET" Version="1.2.1" />
-    <PackageReference Include="Microsoft.Z3" Version="4.11.2" />
+    <PackageReference Include="Microsoft.Z3" Version="4.12.2" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
@@ -115,6 +116,9 @@
     </None>
     <None Update="V2022\Input\day16.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="V2022\Input\day17.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="V2022\Input\day2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
