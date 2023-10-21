@@ -1,5 +1,5 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
+using Nae.Utils.Maths;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -36,7 +36,7 @@ namespace AdventOfCode.V2022.Days
             const string snafuTokens = "012=-";
 
             // Convert base 10 to 5
-            var b5 = $"0{Maths.NumberToStringBase(number, snafuTokens)}".ToCharArray();
+            var b5 = $"0{MathI.NumberToStringBase(number, snafuTokens)}".ToCharArray();
             var retain = false;
 
             for (int i = b5.Length - 1; i >= 0; i--)

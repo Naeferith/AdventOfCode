@@ -1,5 +1,5 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
+using Nae.Utils.Linq;
 using Dijkstra.NET.Graph;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,13 +74,13 @@ namespace AdventOfCode.V2022.Days
                     // Build Nodes
                     if (i == 0)
                     {
-                        nodes.Add(nodeArgs[1], _graph.AddNode(int.Parse(nodeArgs[^1].Split('=').Last())));
+                        nodes.Add(nodeArgs[1], _graph.AddNode(int.Parse(nodeArgs[^1].Split('=')[^1])));
                     }
                     // Build Edges
                     else
                     {
                         var destNodes = item[i].Split(", ").ToArray();
-                        destNodes[0] = destNodes[0].Split(' ').Last();
+                        destNodes[0] = destNodes[0].Split(' ')[^1];
 
                         foreach (var node in destNodes)
                         {

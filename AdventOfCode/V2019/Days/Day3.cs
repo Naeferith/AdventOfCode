@@ -1,6 +1,6 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
 using AdventOfCode.V2019.Core.Day3;
+using Nae.Utils.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace AdventOfCode.V2019.Days
             throw new NotImplementedException();
         }
 
-        private List<Segment> BuildWire(IEnumerable<string> directions)
+        private static List<Segment> BuildWire(IEnumerable<string> directions)
         {
             var work = Point.Zero;
             ReadOnlySpan<char> span;
@@ -41,16 +41,16 @@ namespace AdventOfCode.V2019.Days
                 switch (span[0])
                 {
                     case 'R':
-                        work.X += value;
+                        work = new(work.X + value, work.Y);
                         break;
                     case 'L':
-                        work.X -= value;
+                        work = new(work.X - value, work.Y);
                         break;
                     case 'U':
-                        work.Y -= value;
+                        work = new(work.X, work.Y - value);
                         break;
                     case 'D':
-                        work.Y += value;
+                        work = new(work.X, work.Y + value);
                         break;
                 }
 

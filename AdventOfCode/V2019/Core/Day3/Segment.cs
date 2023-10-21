@@ -1,5 +1,4 @@
-﻿using AdventOfCode.Core.Utils;
-using System;
+﻿using Nae.Utils.Structs;
 
 namespace AdventOfCode.V2019.Core.Day3
 {

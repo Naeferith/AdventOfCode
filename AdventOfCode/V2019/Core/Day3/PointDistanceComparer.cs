@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Core.Utils;
+﻿using Nae.Utils.Structs;
 using System.Collections.Generic;
 
 namespace AdventOfCode.V2019.Core.Day3

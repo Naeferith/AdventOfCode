@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Core.Utils;
+using Nae.Utils.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace AdventOfCode.V2022.Core.Day11
 
         public void SetOperation(string operation)
         {
-            var rValue = operation.Split('=').Last().Trim();
+            var rValue = operation.Split('=')[^1].Trim();
             var args = rValue.Split(' ');
 
             ulong? rOp = null;
@@ -58,7 +59,7 @@ namespace AdventOfCode.V2022.Core.Day11
 
         public void Inspect(IList<Monkey> monkeys)
         {
-            var lcm = Maths.Lcm(monkeys.Select(m => m.Divisor));
+            var lcm = MathI.Lcm(monkeys.Select(m => m.Divisor));
 
             InspectCount += Items.Count;
 

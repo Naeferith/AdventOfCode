@@ -1,5 +1,4 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +30,7 @@ namespace AdventOfCode.V2021.Days
 
             if (typeId == 4)
             {
-                var data = packet.Skip(6).ChunkBy(5);
+                var data = packet.Skip(6).Chunk(5);
                 var buffer = new StringBuilder();
 
                 foreach (var d in data)
@@ -46,7 +45,6 @@ namespace AdventOfCode.V2021.Days
                 return model;
             }
 
-            var lenthTypeId = packet[6];
             var subs = new List<Packet>();
             var l = 0;
 
@@ -81,7 +79,7 @@ namespace AdventOfCode.V2021.Days
             return model;
         }
 
-        private class Packet
+        private sealed class Packet
         {
             public int Version { get; }
             public int TypeID { get; }

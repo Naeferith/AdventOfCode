@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Nae.Utils.Maths;
 
-namespace AdventOfCode.Core.Utils
+namespace Nae.Utils.Linq
 {
-    internal static class Utils
+    public static class EnumerableExtensions
     {
         public static IEnumerable<IEnumerable<T>> ChunkBy<T>(this IEnumerable<T> source, int chunkSize)
         {

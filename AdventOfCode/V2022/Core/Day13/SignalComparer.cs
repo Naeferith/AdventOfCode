@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Core.Utils;
+﻿using Nae.Utils.Linq;
 using System.Collections.Generic;
 using System.Linq;
 

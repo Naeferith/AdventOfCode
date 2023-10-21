@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Runtime.InteropServices;
 
-namespace AdventOfCode.Core.Utils
+namespace Nae.Utils.Maths
 {
-    internal static class Maths
+    /// <summary>
+    /// Provides methods and algorithms treating with interger numbers.
+    /// </summary>
+    public static class MathI
     {
+        /// <summary>
+        /// Computes the Greatest Common Divisor (GCD) of an integer.
+        /// </summary>
+        /// <typeparam name="T">Type of the integer</typeparam>
+        /// <param name="a">First integer</param>
+        /// <param name="b">Second integer</param>
+        /// <returns>The GCD</returns>
         public static T Gcd<T>(T a, T b) where T : IBinaryInteger<T>
         {
             while (b != default)
@@ -18,6 +26,12 @@ namespace AdventOfCode.Core.Utils
             return a;
         }
 
+        /// <summary>
+        /// Computes the Least Common Multiple (LCM) of an integer collection.
+        /// </summary>
+        /// <typeparam name="T">Type of the integers</typeparam>
+        /// <param name="numerics">Integer collection</param>
+        /// <returns>The LCM</returns>
         public static T Lcm<T>(IEnumerable<T> numerics) where T : IBinaryInteger<T>
         {
             var res = T.One;
@@ -28,7 +42,7 @@ namespace AdventOfCode.Core.Utils
             return res;
         }
 
-        public static bool IsBetweenInclusive<T>(this T val, T lowerBound, T upperBound) where T : IBinaryInteger<T>
+        public static bool IsBetweenInclusive<T>(this T val, T lowerBound, T upperBound) where T : IComparisonOperators<T, T, bool>
         {
             return val >= lowerBound && val <= upperBound;
         }

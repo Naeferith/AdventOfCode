@@ -1,5 +1,5 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
+using Nae.Utils.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,8 +68,8 @@ namespace AdventOfCode.V2022.Days
             var coords = str.Split(',');
 
             return new Point(
-                int.Parse(coords[0][(coords[0].IndexOf('=')+1)..]),
-                int.Parse(coords[1][(coords[1].IndexOf('=')+1)..])
+                int.Parse(coords[0][(coords[0].IndexOf('=') + 1)..]),
+                int.Parse(coords[1][(coords[1].IndexOf('=') + 1)..])
                 );
         }
     }

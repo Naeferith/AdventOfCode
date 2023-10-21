@@ -1,16 +1,17 @@
-﻿using System;
-
-namespace AdventOfCode.Core.Utils
+﻿namespace Nae.Utils.Structs
 {
-    internal struct Point : IEquatable<Point>
+    /// <summary>
+    /// Custom implementation of a Vector2 of <see cref="int"/>
+    /// </summary>
+    public readonly struct Point : IEquatable<Point>
     {
         public static Point UnitX => new(1, 0);
         public static Point One => new(1);
         public static Point UnitY => new(0, 1);
         public static Point Zero => new();
 
-        public int X;
-        public int Y;
+        public int X { get; }
+        public int Y { get; }
 
         public Point(int value) : this(value, value)
         {
@@ -49,7 +50,7 @@ namespace AdventOfCode.Core.Utils
             var dyl = value2.Y - value1.Y;
 
             return dxc * dyl - dxl * dyc;
-        } 
+        }
         public static Point Divide(Point left, Point right)
         {
             return left / right;
@@ -112,12 +113,12 @@ namespace AdventOfCode.Core.Utils
             return !left.Equals(right);
         }
 
-        public bool Equals(Point other)
+        public readonly bool Equals(Point other)
         {
             return other.X == X && other.Y == Y;
         }
 
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object? obj)
         {
             return obj is Point point && Equals(point);
         }
@@ -127,7 +128,7 @@ namespace AdventOfCode.Core.Utils
             return HashCode.Combine(X, Y);
         }
 
-        public override string ToString()
+        public override readonly string ToString()
         {
             return $"{{x: {X}, y: {Y}}}";
         }

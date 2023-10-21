@@ -1,5 +1,7 @@
 ﻿using AdventOfCode.Core.AoC;
-using AdventOfCode.Core.Utils;
+using Nae.Utils.Linq;
+using Nae.Utils.Maths;
+using Nae.Utils.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
