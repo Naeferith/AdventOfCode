@@ -14,8 +14,9 @@ namespace Nae.Utils.Structs
         public static Point<T> UnitY => new(T.Zero, T.One);
         public static Point<T> Zero => new();
 
-        public T X { get; }
-        public T Y { get; }
+        public readonly T X;
+
+        public readonly T Y;
 
         public Point(T value) : this(value, value)
         {
