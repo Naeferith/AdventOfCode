@@ -2,14 +2,14 @@
 
 namespace AdventOfCode.V2019.Core.Day3
 {
-    internal class PointDistanceComparer : IComparer<Point>
+    internal class PointDistanceComparer : IComparer<Point<int>>
     {
-        public int Compare(Point x, Point y)
+        public int Compare(Point<int> x, Point<int> y)
         {
-            var zero = Point.Zero;
+            var zero = Point<int>.Zero;
 
-            var d1 = Point.ManhattanDistance(zero, x);
-            var d2 = Point.ManhattanDistance(zero, y);
+            var d1 = Point<int>.ManhattanDistance(zero, x);
+            var d2 = Point<int>.ManhattanDistance(zero, y);
 
             return d1 - d2;
         }

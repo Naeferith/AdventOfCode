@@ -20,7 +20,7 @@
 	<ContentWithTargetPath Include="Input\*.txt">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		<TargetPath>Input\2022\%(Filename)%(Extension)</TargetPath>
-	</ContentWithTargetPath >
+	</ContentWithTargetPath>
   </ItemGroup>
 
 </Project>

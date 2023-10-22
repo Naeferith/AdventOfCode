@@ -17,7 +17,7 @@ namespace AdventOfCode.V2019.Days
 
             var intersections = GetIntersections(wire1, wire2);
             var closest = intersections.OrderBy(p => p, new PointDistanceComparer()).First();
-            return Point.ManhattanDistance(Point.Zero, closest).ToString();
+            return Point<int>.ManhattanDistance(Point<int>.Zero, closest).ToString();
         }
 
         public string Solution2(string[] lines)
@@ -27,13 +27,13 @@ namespace AdventOfCode.V2019.Days
 
         private static List<Segment> BuildWire(IEnumerable<string> directions)
         {
-            var work = Point.Zero;
+            var work = Point<int>.Zero;
             ReadOnlySpan<char> span;
             var wire = new List<Segment>(directions.Count() - 1);
 
             foreach (var item in directions)
             {
-                var start = new Point(work);
+                var start = new Point<int>(work);
                 span = item;
                 var value = int.Parse(span[1..]);
 
@@ -63,9 +63,9 @@ namespace AdventOfCode.V2019.Days
             return wire;
         }
 
-        private static List<Point> GetIntersections(List<Segment> wire1, List<Segment> wire2)
+        private static List<Point<int>> GetIntersections(List<Segment> wire1, List<Segment> wire2)
         {
-            var result = new List<Point>();
+            var result = new List<Point<int>>();
             var combins = wire1.SelectMany(c => wire2.Select(g => new { Segment1 = c, Segment2 = g }));
 
             foreach (var combin in combins)

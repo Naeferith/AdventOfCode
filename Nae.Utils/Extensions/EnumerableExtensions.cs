@@ -1,4 +1,6 @@
-﻿namespace Nae.Utils.Extensions
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Nae.Utils.Extensions
 {
     public static class EnumerableExtensions
     {
@@ -30,6 +32,40 @@
                 reminder.SelectMany((c, i) => Inner_Permutate(
                     reminder.Take(i).Concat(reminder.Skip(i + 1)).ToArray(),
                     prefix.Append(c)));
+        }
+
+        public static IEnumerable<T> Range<T>(int length, Func<int, T> factory)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                yield return factory(i);
+            }
+        }
+
+        /// <summary>
+        /// Perform an enumeration loop on a <see cref="IEnumerable{T}"/>.
+        /// Since the returned <see cref="IEnumerable{T}"/> is infinite,
+        /// consumers should :
+        /// <para>
+        ///     - Never materialize the <see cref="IEnumerable{T}"/>.
+        /// </para>
+        /// <para>
+        ///     - Have a way to break any loops using this <see cref="IEnumerable{T}"/>.
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T">Type of the enumeration</typeparam>
+        /// <param name="source">An infinite enumeration</param>
+        /// <returns></returns>
+        [SuppressMessage("Blocker Bug", "S2190:Loops and recursions should not be infinite", Justification = "Whole point of this method")]
+        public static IEnumerable<T> Loop<T>(this IEnumerable<T> source)
+        {
+            while (true)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }

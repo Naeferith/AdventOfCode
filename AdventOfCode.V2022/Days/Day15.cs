@@ -5,7 +5,7 @@ namespace AdventOfCode.V2022.Days
 {
     internal class Day15 : IDay
     {
-        private IDictionary<Point, List<Point>> _beacons;
+        private IDictionary<Point<int>, List<Point<int>>> _beacons;
 
         public int DayNumber => 15;
 
@@ -17,19 +17,19 @@ namespace AdventOfCode.V2022.Days
 
             Initialize(lines);
 
-            var absencePoints = new HashSet<Point>();
+            var absencePoints = new HashSet<Point<int>>();
 
             foreach (var beacon in _beacons)
             {
                 foreach (var signal in beacon.Value)
                 {
-                    var maxDistance = Point.ManhattanDistance(beacon.Key, signal);
+                    var maxDistance = Point<int>.ManhattanDistance(beacon.Key, signal);
                     var dY = Math.Abs(ROW_Y - signal.Y);
                     var workingDistance = maxDistance - dY;
 
                     for (int x = signal.X - workingDistance; x <= signal.X + workingDistance; x++)
                     {
-                        var point = new Point(x, ROW_Y);
+                        var point = new Point<int>(x, ROW_Y);
 
                         if (!_beacons.ContainsKey(point))
                             absencePoints.Add(point);
@@ -63,11 +63,11 @@ namespace AdventOfCode.V2022.Days
                 .ToDictionary(g => g.Key, g => g.Select(g => g.Item1).ToList());
         }
 
-        private static Point BuildFromCoords(string str)
+        private static Point<int> BuildFromCoords(string str)
         {
             var coords = str.Split(',');
 
-            return new Point(
+            return new Point<int>(
                 int.Parse(coords[0][(coords[0].IndexOf('=') + 1)..]),
                 int.Parse(coords[1][(coords[1].IndexOf('=') + 1)..])
                 );

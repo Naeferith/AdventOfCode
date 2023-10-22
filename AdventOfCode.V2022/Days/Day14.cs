@@ -7,9 +7,9 @@ namespace AdventOfCode.V2022.Days
 {
     internal class Day14 : IDay
     {
-        private IList<List<Point>> _rockPaths;
+        private IList<List<Point<int>>> _rockPaths;
 
-        private HashSet<Point> _solidPoints;
+        private HashSet<Point<int>> _solidPoints;
 
         public int DayNumber => 14;
 
@@ -30,7 +30,7 @@ namespace AdventOfCode.V2022.Days
             Initialize(lines);
             Materialize();
 
-            var sandSource = new Point(500, 0);
+            var sandSource = new Point<int>(500, 0);
             var curSand = sandSource;
 
             var (minX, maxX) = _rockPaths.SelectMany(p => p.Select(p => p.X)).Bounds();
@@ -67,7 +67,7 @@ namespace AdventOfCode.V2022.Days
 
         private void Initialize(string[] lines)
         {
-            _rockPaths = new List<List<Point>>();
+            _rockPaths = new List<List<Point<int>>>();
 
             foreach (var line in lines)
             {
@@ -79,10 +79,10 @@ namespace AdventOfCode.V2022.Days
                     .SelectMany(i => i)
                     .ToArray();
 
-                var work = new List<Point>();
+                var work = new List<Point<int>>();
                 for (int i = 0; i < coords.Length; i += 2)
                 {
-                    work.Add(new Point(coords[i], coords[i + 1]));
+                    work.Add(new Point<int>(coords[i], coords[i + 1]));
                 }
                 _rockPaths.Add(work);
             }
@@ -105,7 +105,7 @@ namespace AdventOfCode.V2022.Days
                         max = Math.Max(path[i - 1].X, path[i].X);
 
                         for (int x = min; x <= max; x++)
-                            _solidPoints.Add(new Point(x, path[i].Y));
+                            _solidPoints.Add(new Point<int>(x, path[i].Y));
                     }
                     else
                     {
@@ -113,15 +113,15 @@ namespace AdventOfCode.V2022.Days
                         max = Math.Max(path[i - 1].Y, path[i].Y);
 
                         for (int y = min; y <= max; y++)
-                            _solidPoints.Add(new Point(path[i].X, y));
+                            _solidPoints.Add(new Point<int>(path[i].X, y));
                     }
                 }
             }
         }
 
-        private Point? FallDirection(Point sand, int? ground)
+        private Point<int>? FallDirection(Point<int> sand, int? ground)
         {
-            var under = sand + Point.UnitY;
+            var under = sand + Point<int>.UnitY;
 
             if (under.Y >= ground)
                 return null;
@@ -129,11 +129,11 @@ namespace AdventOfCode.V2022.Days
             if (!_solidPoints.Contains(under))
                 return under;
 
-            var left = under - Point.UnitX;
+            var left = under - Point<int>.UnitX;
             if (!_solidPoints.Contains(left))
                 return left;
 
-            var right = under + Point.UnitX;
+            var right = under + Point<int>.UnitX;
             if (!_solidPoints.Contains(right))
                 return right;
 
