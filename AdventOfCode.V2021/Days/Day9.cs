@@ -43,7 +43,7 @@ namespace AdventOfCode.V2021.Days
                     };
                 bazins.Add(GetHighs(low, grid, ref bazin));
             }
-#if TRACE
+#if DEBUG
 #pragma warning disable CA1416 // Valider la compatibilité de la plateforme
             using var bmp = new Bitmap(rows.First().Count(), rows.Count());
             using var gfx = Graphics.FromImage(bmp);
