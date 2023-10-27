@@ -85,6 +85,7 @@ namespace AdventOfCode.V2022.Days
         public string Solution2(string[] lines)
         {
             throw new NotImplementedException();
+            // Too slow to be ran yet
             return Solution(lines[0], 1_000_000_000_000);
         }
 
