@@ -1,7 +1,10 @@
-﻿namespace Nae.Utils.Components
+﻿using Nae.Utils.Extensions;
+using Nae.Utils.Maths;
+
+namespace Nae.Utils.Components
 {
     /// <summary>
-    /// Defines a structure that wraps an <see cref="Array"/>
+    /// Defines a structure that wraps an <see cref="System.Array"/>
     /// (generally multi-dimensionnal) of <typeparamref name="T"/>
     /// where the goal is to navigate through from a specic point.
     /// </summary>
@@ -18,7 +21,7 @@
         /// <summary>
         /// Matrix data structure
         /// </summary>
-        private readonly Array _array = null!;
+        protected Array Array { get; } = null!;
 
         /// <summary>
         /// Allows for a cancellation of a current movement order.
@@ -35,12 +38,12 @@
         /// <summary>
         /// Current position of the cursor
         /// </summary>
-        private int[] Cursor { get; }
+        public int[] Cursor { get; }
 
         /// <summary>
         /// Current value under the cursor.
         /// </summary>
-        public T? Current => (T?)_array.GetValue(Cursor);
+        public T? Current => (T?)Array.GetValue(Cursor);
         #endregion
 
         #region Events
@@ -62,13 +65,15 @@
                 Behavior = MatrixEdgeBehavior.Throw
             }, lengths)
         {
+            ResetCursor();
         }
 
         public CursorMatrix(MatrixMovingStrategy strategy, params int[] lengths)
             : this(lengths.Length, strategy)
         {
-            _array = Array.CreateInstance(typeof(T), lengths);
-            _array.Initialize();
+            Array = Array.CreateInstance(typeof(T), lengths);
+            Array.Initialize();
+            ResetCursor();
         }
 
         public CursorMatrix(int[] lengths, int[] lowerBounds)
@@ -78,15 +83,39 @@
                 Behavior = MatrixEdgeBehavior.Throw
             }, lengths, lowerBounds)
         {
+            ResetCursor();
         }
 
         public CursorMatrix(MatrixMovingStrategy strategy, int[] lengths, int[] lowerBounds)
             : this(lengths.Length, strategy)
         {
-            _array = Array.CreateInstance(typeof(T), lengths, lowerBounds);
-            _array.Initialize();
+            Array = Array.CreateInstance(typeof(T), lengths, lowerBounds);
+            Array.Initialize();
+            ResetCursor();
         }
         #endregion
+
+        public void ResetCursor()
+        {
+            for (int i = 0; i < Cursor.Length; i++)
+            {
+                Cursor[i] = Array.GetLowerBound(i);
+            }
+        }
+
+        public bool IsPointWithinMatrix(int[] indicies)
+        {
+            return Array.IsPointWithinMatrix(indicies);
+        }
+
+        public bool IsIndexInDimension(int dimension, int idx)
+        {
+            return idx.IsBetweenInclusive(Array.GetLowerBound(dimension), Array.GetUpperBound(dimension));
+        }
+
+        public int GetLowerBound(int dimension) => Array.GetLowerBound(dimension);
+
+        public int GetUpperBound(int dimension) => Array.GetUpperBound(dimension);
 
         #region Virtual Methods
         /// <summary>
@@ -102,8 +131,8 @@
         protected virtual bool OnOverEdge(bool exceedUpderBound, int remainingDistance)
         {
             Cursor[MovingDimension] = exceedUpderBound
-                ? _array.GetLowerBound(MovingDimension)
-                : _array.GetUpperBound(MovingDimension);
+                ? Array.GetLowerBound(MovingDimension)
+                : Array.GetUpperBound(MovingDimension);
 
             return true;
         }
@@ -113,11 +142,10 @@
         /// Sets the cursor to a specific location.
         /// </summary>
         /// <param name="indices">The positions indicies</param>
-        /// <returns>The element under the cursor</returns>
         /// <exception cref="RankException">
         ///     If provided <paramref name="indices"/> does not match this matrix rank count.
         /// </exception>
-        public T? SetCursor(params int[] indices)
+        public void SetCursor(params int[] indices)
         {
             if (indices.Length != Cursor.Length)
             {
@@ -125,40 +153,56 @@
             }
 
             indices.CopyTo(Cursor, 0);
+        }
 
-            return Current;
+        public void Initialize(IEnumerable<T> values, IEnumerable<int[]> indicies)
+        {
+            foreach (var (Value, Index) in values.Zip(indicies))
+            {
+                Array.SetValue(Value, Index);
+            }
         }
 
         #region Movement Methods
-        public int Forward(int distance)
+        public MovementResult Forward()
+        {
+            return Forward(1);
+        }
+
+        public MovementResult Forward(int distance)
         {
             return Forward(distance, MovingStrategy);
         }
 
-        public int Forward(int distance, MatrixMovingStrategy strategy)
+        public MovementResult Forward(int distance, MatrixMovingStrategy strategy)
         {
             return Move(distance, true, strategy);
         }
 
-        public int Backward(int distance)
+        public MovementResult Backward()
+        {
+            return Backward(1);
+        }
+
+        public MovementResult Backward(int distance)
         {
             return Backward(distance, MovingStrategy);
         }
 
-        public int Backward(int distance, MatrixMovingStrategy strategy)
+        public MovementResult Backward(int distance, MatrixMovingStrategy strategy)
         {
             return Move(distance, false, strategy);
         }
 
-        private int Move(int distance, bool forward, MatrixMovingStrategy strategy)
+        private MovementResult Move(int distance, bool forward, MatrixMovingStrategy strategy)
         {
             distance = forward
                 ? distance
                 : -distance;
 
             if (strategy.Behavior == MatrixEdgeBehavior.Throw
-                && Cursor[MovingDimension] + distance < _array.GetLowerBound(MovingDimension)
-                && Cursor[MovingDimension] + distance > _array.GetUpperBound(MovingDimension))
+                && Cursor[MovingDimension] + distance < Array.GetLowerBound(MovingDimension)
+                && Cursor[MovingDimension] + distance > Array.GetUpperBound(MovingDimension))
             {
                 throw new ArgumentOutOfRangeException(nameof(distance));
             }
@@ -172,22 +216,21 @@
                 var nextIdx = Cursor[MovingDimension] + directionUnit;
 
                 if (strategy.Behavior == MatrixEdgeBehavior.Stopping
-                    && nextIdx < _array.GetLowerBound(MovingDimension)
-                    && nextIdx > _array.GetUpperBound(MovingDimension))
+                    && !nextIdx.IsBetweenInclusive(Array.GetLowerBound(MovingDimension), Array.GetUpperBound(MovingDimension)))
                 {
-                    break;
+                    return new(processedMovements, MovementStatus.EnconteredEdge);
                 }
 
                 var oldIdx = Cursor[MovingDimension];
 
-                if (nextIdx < _array.GetLowerBound(MovingDimension))
+                if (nextIdx < Array.GetLowerBound(MovingDimension))
                 {
                     if (OnOverEdge(false, absDistance - processedMovements))
                     {
                         break;
                     }
                 }
-                else if (nextIdx > _array.GetUpperBound(MovingDimension))
+                else if (nextIdx > Array.GetUpperBound(MovingDimension))
                 {
                     if (OnOverEdge(true, absDistance - processedMovements))
                     {
@@ -199,16 +242,16 @@
                     Cursor[MovingDimension] = nextIdx;
                 }
 
-                if (!IsCrossable(Current))
+                if (!strategy.BypassCrossable && !IsCrossable(Current))
                 {
                     Cursor[MovingDimension] = oldIdx;
-                    break;
+                    return new(absDistance, MovementStatus.EnconteredWall);
                 }
 
                 OnMoved?.Invoke(Current);
             }
 
-            return processedMovements;
+            return new(processedMovements, MovementStatus.Ok);
         }
         #endregion
     }
@@ -218,6 +261,26 @@
         public bool BypassCrossable { get; set; }
 
         public MatrixEdgeBehavior Behavior { get; set; }
+    }
+
+    public struct MovementResult
+    {
+        public MovementResult(int processedMoves, MovementStatus result)
+        {
+            ProcessedMoves = processedMoves;
+            Result = result;
+        }
+
+        public int ProcessedMoves { get; set; }
+
+        public MovementStatus Result { get; set; }
+    }
+
+    public enum MovementStatus
+    {
+        Ok,
+        EnconteredWall,
+        EnconteredEdge
     }
 
     public enum MatrixEdgeBehavior
