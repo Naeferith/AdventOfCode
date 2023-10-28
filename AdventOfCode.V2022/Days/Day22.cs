@@ -19,6 +19,7 @@ namespace AdventOfCode.V2022.Days
         {
             Initialize(lines);
             ParseDirection(lines[^1]);
+
             var passwd = _facing
                 + (_activeChunk.Cursor[0] + 1) * 4
                 + (_activeChunk.Cursor[1] + 1) * 1_000;
@@ -83,21 +84,15 @@ namespace AdventOfCode.V2022.Days
 
                 var contigousChunk = Array.Find(tmpChunks, c => c.IsIndexInDimension(1, _activeChunk.Cursor[1] + 1));
 
-                if (contigousChunk is not null)
-                {
-                    _activeChunk = contigousChunk;
-                }
-                else
-                {
-                    _activeChunk = forward
+                contigousChunk ??= forward
                     ? tmpChunks
                         .OrderBy(c => c.GetUpperBound(1))
                         .First()
                     : tmpChunks
                         .OrderByDescending(c => c.GetUpperBound(1))
                         .First();
-                }
 
+                _activeChunk = contigousChunk;
                 _activeChunk.MovingDimension = 1;
             }
 
@@ -106,14 +101,9 @@ namespace AdventOfCode.V2022.Days
             oldChunk.Cursor.CopyTo(oldCursor, 0);
             oldChunk.Cursor.CopyTo(tmpCursor, 0);
 
-            if (forward)
-            {
-                tmpCursor[_activeChunk.MovingDimension] = _activeChunk.GetLowerBound(_activeChunk.MovingDimension);
-            }
-            else
-            {
-                tmpCursor[_activeChunk.MovingDimension] = _activeChunk.GetUpperBound(_activeChunk.MovingDimension);
-            }
+            tmpCursor[_activeChunk.MovingDimension] = forward
+                    ? _activeChunk.GetLowerBound(_activeChunk.MovingDimension)
+                    : _activeChunk.GetUpperBound(_activeChunk.MovingDimension);
 
             _activeChunk.SetCursor(tmpCursor);
 
@@ -169,7 +159,6 @@ namespace AdventOfCode.V2022.Days
                 if (lineOffest < 0)
                 {
                     AddChunk(xOffset, xLen, chunkBuffer, chunks, y - chunkBuffer.Count);
-                    chunkBuffer.Clear();
                     break;
                 }
 
@@ -182,7 +171,6 @@ namespace AdventOfCode.V2022.Days
                 else
                 {
                     AddChunk(xOffset, xLen, chunkBuffer, chunks, y - chunkBuffer.Count);
-                    chunkBuffer.Clear();
                     xOffset = lineOffest;
                     xLen = line.Length;
                     y--;
@@ -196,12 +184,11 @@ namespace AdventOfCode.V2022.Days
         private static void AddChunk(int xOffset, int xLen, List<char[]> chunkBuffer, List<MapChunk> chunks, int yOffest)
         {
             var chunk = new MapChunk(xLen, chunkBuffer.Count, xOffset, yOffest);
-
             var vals = chunkBuffer.SelectMany((str, y) => Project(str, y, xOffset, yOffest));
 
             chunk.Initialize(vals.Select(v => v.Item1), vals.Select(v => v.Item2));
-
             chunks.Add(chunk);
+            chunkBuffer.Clear();
         }
 
         private static IEnumerable<(char, int[])> Project(char[] str, int y, int xOffset, int yOffest)
