@@ -24,6 +24,7 @@
                 }
             }
         }
+
         public Set(int blue, int red, int green)
         {
             Blue = blue;
