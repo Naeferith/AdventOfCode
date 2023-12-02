@@ -70,7 +70,7 @@ namespace AdventOfCode.V2022.Days
                 ? _activeChunk.Forward(num)
                 : _activeChunk.Backward(num);
 
-            if (moves.Result != MovementStatus.EnconteredEdge)
+            if (moves.Result != MovementStatus.EncounteredEdge)
             {
                 return;
             }
@@ -82,7 +82,7 @@ namespace AdventOfCode.V2022.Days
             {
                 var tmpChunks = _mapChunks.Where(c => c.IsIndexInDimension(0, _activeChunk.Cursor[0])).ToArray();
 
-                var contigousChunk = Array.Find(tmpChunks, c => c.IsIndexInDimension(1, _activeChunk.Cursor[1] + 1));
+                var contigousChunk = Array.Find(tmpChunks, c => c.IsIndexInDimension(1, _activeChunk.Cursor[1] + (forward ? 1 : -1)));
 
                 contigousChunk ??= forward
                     ? tmpChunks

@@ -218,7 +218,7 @@ namespace Nae.Utils.Components
                 if (strategy.Behavior == MatrixEdgeBehavior.Stopping
                     && !nextIdx.IsBetweenInclusive(Array.GetLowerBound(MovingDimension), Array.GetUpperBound(MovingDimension)))
                 {
-                    return new(processedMovements, MovementStatus.EnconteredEdge);
+                    return new(processedMovements, MovementStatus.EncounteredEdge);
                 }
 
                 var oldIdx = Cursor[MovingDimension];
@@ -245,7 +245,7 @@ namespace Nae.Utils.Components
                 if (!strategy.BypassCrossable && !IsCrossable(Current))
                 {
                     Cursor[MovingDimension] = oldIdx;
-                    return new(absDistance, MovementStatus.EnconteredWall);
+                    return new(absDistance, MovementStatus.EncounteredWall);
                 }
 
                 OnMoved?.Invoke(Current);
@@ -279,8 +279,8 @@ namespace Nae.Utils.Components
     public enum MovementStatus
     {
         Ok,
-        EnconteredWall,
-        EnconteredEdge
+        EncounteredWall,
+        EncounteredEdge
     }
 
     public enum MatrixEdgeBehavior

@@ -1,6 +1,6 @@
 ﻿using AdventOfCode.Core;
 using AdventOfCode.Core.Components;
-using AdventOfCode.V2022.Extensions;
+using AdventOfCode.V2023.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -28,7 +28,7 @@ namespace AdventOfCode
         private static void RegisterServices(HostBuilderContext builder, IServiceCollection services)
         {
             services.AddTransient<ICalendar, Calendar>();
-            services.Register2022Calendar(ServiceLifetime.Singleton);
+            services.Register2023Calendar(ServiceLifetime.Singleton);
 
             services.TryAddSingleton<IInputAccessor, DefaultInputAccessor>();
         }

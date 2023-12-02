@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +23,7 @@
 	  <ProjectReference Include="..\AdventOfCode.V2022\AdventOfCode.V2022.csproj">
 		  <IncludeAssets>all</IncludeAssets>
 	  </ProjectReference>
+	  <ProjectReference Include="..\AdventOfCode.V2023\AdventOfCode.V2023.csproj" />
   </ItemGroup>
 
 </Project>
