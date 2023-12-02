@@ -1,5 +1,4 @@
 ﻿using AdventOfCode.Core.Components;
-using System.Linq;
 
 namespace AdventOfCode.V2023.Days.Day2
 {
