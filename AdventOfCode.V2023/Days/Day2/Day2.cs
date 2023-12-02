@@ -22,8 +22,7 @@ namespace AdventOfCode.V2023.Days.Day2
         {
             return lines
                 .Select(ParseSets)
-                .Select(s => new Set(s.Max(s => s.Blue), s.Max(s => s.Red), s.Max(s => s.Green)))
-                .Select(s => s.Red * s.Blue * s.Green)
+                .Select(s => s.Max(s => s.Blue) * s.Max(s => s.Red) * s.Max(s => s.Green))
                 .Sum()
                 .ToString();
         }

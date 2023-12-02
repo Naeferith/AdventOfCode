@@ -25,13 +25,6 @@
             }
         }
 
-        public Set(int blue, int red, int green)
-        {
-            Blue = blue;
-            Red = red;
-            Green = green;
-        }
-
         public int Blue { get; set; }
 
         public int Red { get; set; }
