@@ -66,6 +66,9 @@ namespace AdventOfCode.V2023.Days.Day5
             return work;
         }
 
+        /// <summary>
+        /// Dumb and slow way to do it, need to optimize it later
+        /// </summary>
         public string Solution2(string[] lines)
         {
             var seeds = lines[0].Split(' ').Skip(1)

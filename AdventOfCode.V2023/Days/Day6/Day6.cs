@@ -25,6 +25,10 @@ namespace AdventOfCode.V2023.Days.Day6
                 .ToString();
         }
 
+        /// <summary>
+        /// Easiest way to do it but O(n).
+        /// Can easily be made in O(log(n)). Need to optimize it later.
+        /// </summary>
         public string Solution2(string[] lines)
         {
             var time = int.Parse(lines[0]
