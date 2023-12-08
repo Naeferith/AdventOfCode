@@ -1,6 +1,7 @@
 ﻿using AdventOfCode.Core.Components;
 using AdventOfCode.Core.Extensions;
 using System.Collections;
+using System.Diagnostics;
 using System.Text;
 
 namespace AdventOfCode.Core
@@ -86,7 +87,16 @@ namespace AdventOfCode.Core
 
                 try
                 {
-                    result = solutions[i](accessor.GetInputLines(day));
+                    var lines = accessor.GetInputLines(day);
+
+                    var sw = new Stopwatch();
+                    sw.Start();
+
+                    result = solutions[i](lines);
+
+                    sw.Stop();
+
+                    result += $" (ms: {sw.Elapsed.TotalMilliseconds})";
                 }
                 catch (NotImplementedException)
                 {

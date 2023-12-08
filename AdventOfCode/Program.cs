@@ -15,7 +15,7 @@ namespace AdventOfCode
             var calendar = host.Services.GetRequiredService<ICalendar>();
             var input = host.Services.GetRequiredService<IInputAccessor>();
 
-            calendar.PrintDay(Console.Out, 3, input);
+            calendar.PrintDay(Console.Out, 8, input);
 
             Console.ReadKey();
         }
